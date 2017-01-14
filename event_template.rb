@@ -7,7 +7,7 @@ def art_template(title)
       "columns": [
           {
             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-            "title": title,
+            "title": "title",
             "text": "body",#location + fee + body,
             "actions": [
                 {
