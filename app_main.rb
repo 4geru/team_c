@@ -37,14 +37,14 @@ post '/callback' do
 #          art = Art.new
 #          art.set title: "title", location: "location", fee:"fee", body:"body", image:"image"
           art = ["title", "location", "fee", "body", "image"]
-#          title = 'title'
-#          location = 'location'
-#          fee = "fee"
-#          body = "body"
-#          image = "https://example.com/bot/images/item1.jpg"
+          title = 'title'
+          location = 'location'
+          fee = "fee"
+          body = "body"
+          image = "https://example.com/bot/images/item1.jpg"
 #          num = 1
-#            client.reply_message(event['replyToken'], event_template(title, location, fee, body, image, num))
-            client.reply_message(event['replyToken'], art_template(art))
+            client.reply_message(event['replyToken'], event_template(title, location, fee, body, image))
+#            client.reply_message(event['replyToken'], art_template(art))
 
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))

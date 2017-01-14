@@ -1,4 +1,4 @@
-def art_template(art)
+def art_template(title, location, fee, body, image)
 {
   "type": "template",
   "altText": "this is a carousel template",
@@ -7,8 +7,8 @@ def art_template(art)
       "columns": [
           {
             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-            "title": art[0],
-            "text": art[1],
+            "title": title,
+            "text": location,
             "actions": [
                 {
                     "type": "postback",
