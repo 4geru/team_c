@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'line/bot'
+require './message'
 
 # 微小変更部分！確認用。
 get '/' do
@@ -27,6 +28,7 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
+<<<<<<< HEAD
         message = {
           "type": "template",
           "altText": "this is a carousel template",
@@ -81,6 +83,13 @@ post '/callback' do
           }
         }
         client.reply_message(event['replyToken'], message)
+=======
+        if event.message['text'] =~ /テンプレート/
+          client.reply_message(event['replyToken'], reply_template)
+        else
+          client.reply_message(event['replyToken'], reply_message(event.message['text']))
+        end
+>>>>>>> 2d5831934fc5e49c53fdde17e16db819d0a52c97
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
