@@ -1,15 +1,16 @@
-def event_template(title, location, fee, body, image, num)
+#def event_template(title, location, fee, body, image, num)
+def event_template
   {
     "type": "template",
-    "altText": "this is a xarousel template",
+    "altText": "this is a carousel template",
     "template": {
       "type": "carousel",
       "columns": [
         #for i in 0..num
           {
-            "thumbnailImageUrl": image,
-            "title": title,
-            "text": location,
+            "thumbnailImageUrl": "image",
+            "title": "title",
+            "text": "location",
 #            "text": fee[i],
 #            "text": body[i],
 =begin
