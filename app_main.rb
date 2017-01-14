@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'line/bot'
 require './message'
-require '.event_template'
+require './event_template'
 
 # 微小変更部分！確認用。
 get '/' do
