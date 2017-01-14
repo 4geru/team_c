@@ -8,9 +8,31 @@ def art_template
       "columns": [
 #        art.colum
         {
-          "thumbnailImageUrl": "http://example.com/bot/images/item1.jpg"#art[4],
-          "title": "title"#art[0],
-          "text": "location"#art[1],
+          "thumbnailImageUrl": "http://example.com/bot/images/item1.jpg",#art[4],
+          "title": "title",#art[0],
+          "text": "location",#art[1],
+          "actions": [
+              {
+                  "type": "postback",
+                  "label": "Buy",
+                  "data": "action=buy&itemid=111"
+              },
+              {
+                  "type": "postback",
+                  "label": "Add to cart",
+                  "data": "action=add&itemid=111"
+              },
+              {
+                  "type": "uri",
+                  "label": "View detail",
+                  "uri": "http://example.com/page/111"
+              }
+          ]
+        },
+        {
+          "thumbnailImageUrl": "http://example.com/bot/images/item1.jpg",#art[4],
+          "title": "title",#art[0],
+          "text": "location",#art[1],
           "actions": [
               {
                   "type": "postback",
@@ -33,7 +55,7 @@ def art_template
     }
   }
 end
-
+=begin
 class Art
   attr_accessor :title , :location, :fee, :body, :image
 
@@ -69,3 +91,4 @@ class Art
     }
   end
 end
+=end
