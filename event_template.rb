@@ -1,5 +1,5 @@
 def event_template(title, location, fee, body, image, num)
-  message = {
+  {
     "type": "template",
     "altText": "this is a xarousel template",
     "template": {
