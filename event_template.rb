@@ -13,7 +13,7 @@ def event_template
             "text": "location",
 #            "text": fee[i],
 #            "text": body[i],
-=begin
+
             "actions": [
               {
                 "type": "postback",
@@ -31,7 +31,7 @@ def event_template
                 "data": "action=hoge",
               }
             ]
-=end
+
           }
         #end
        ]
