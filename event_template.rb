@@ -6,7 +6,29 @@ def art_template(art)
     "template": {
       "type": "carousel",
       "columns": [
-        art.colum
+#        art.colum
+        {
+          "thumbnailImageUrl": art[4],
+          "title": art[0],
+          "text": art[1],
+          "actions": [
+              {
+                  "type": "postback",
+                  "label": "Buy",
+                  "data": "action=buy&itemid=111"
+              },
+              {
+                  "type": "postback",
+                  "label": "Add to cart",
+                  "data": "action=add&itemid=111"
+              },
+              {
+                  "type": "uri",
+                  "label": "View detail",
+                  "uri": "http://example.com/page/111"
+              }
+          ]
+        }
        ]
     }
   }
