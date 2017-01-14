@@ -36,14 +36,14 @@ post '/callback' do
         elsif event.message['text'] =~ /イベント/
 #          art = Art.new
 #          art.set title: "title", location: "location", fee:"fee", body:"body", image:"image"
-          art = ["title", "location", "fee", "body", "image"]
+          #art = ["title", "location", "fee", "body", "image"]
           title = 'title'
           location = 'location'
           fee = "fee"
           body = "body"
           image = "https://example.com/bot/images/item1.jpg"
 #          num = 1
-            client.reply_message(event['replyToken'], event_template(title, location, fee, body, image))
+            client.reply_message(event['replyToken'], event_template(title))
 #            client.reply_message(event['replyToken'], art_template(art))
 
         else

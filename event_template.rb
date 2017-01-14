@@ -8,7 +8,7 @@ def art_template(title, location, fee, body, image)
           {
             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
             "title": title,
-            "text": location + fee + body,
+            "text": "body",#location + fee + body,
             "actions": [
                 {
                     "type": "postback",
