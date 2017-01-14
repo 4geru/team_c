@@ -9,7 +9,7 @@ def event_template(title, location, fee, body, image, num)
           {
             "thumbnailImageUrl": image,
             "title": title,
-            "text": location[i],
+            "text": location,
 #            "text": fee[i],
 #            "text": body[i],
 =begin

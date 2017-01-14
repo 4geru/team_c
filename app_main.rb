@@ -34,11 +34,11 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template)
 
         elsif event.message['text'] =~ /イベント/
-          title = ['title']
-          location = ['location']
-          fee = ["fee"]
-          body = ["body"]
-          image = ["https://example.com/bot/images/item1.jpg"]
+          title = 'title'
+          location = 'location'
+          fee = "fee"
+          body = "body"
+          image = "https://example.com/bot/images/item1.jpg"
             client.reply_message(event['replyToken'], event_template(title, location, fee, body, image, 0))
 
         else
