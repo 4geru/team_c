@@ -28,11 +28,7 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /ジャンル/
-          client.reply_message(event['replyToken'], reply_rand_genre)
-        elsif event.message['text'] =~ /テンプレート/
-          client.reply_message(event['replyToken'], reply_template)
-        end
+        client.reply_message(event['replyToken'], event.message['text'])
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
