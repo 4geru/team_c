@@ -1,5 +1,5 @@
 #def event_template(title, location, fee, body, image, num)
-def art_template(art)
+def art_template
   {
     "type": "template",
     "altText": "this is a carousel template",
