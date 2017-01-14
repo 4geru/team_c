@@ -1,4 +1,4 @@
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL']||"sqlite3:db/development.db")
+require './models/genre.rb'
 namespace :make do
 
   desc "It make Genre db"
