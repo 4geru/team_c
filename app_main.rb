@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'line/bot'
 require './message'
-require '.event_template'
+#require '.event_template'
 
 # 微小変更部分！確認用。
 get '/' do
@@ -33,8 +33,8 @@ post '/callback' do
         if event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
 
-        elsif event.message['text'] =~ /イベント/
-            client.reply_message(event['replyToken'], event_template(["title"], ["location"], ["fee"], ["body"],["https://example.com/bot/images/item1.jpg"], 0))
+        #elsif event.message['text'] =~ /イベント/
+        #    client.reply_message(event['replyToken'], event_template(["title"], ["location"], ["fee"], ["body"],["https://example.com/bot/images/item1.jpg"], 0))
 
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
