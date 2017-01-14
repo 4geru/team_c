@@ -11,6 +11,10 @@ get '/' do
   "Hello world"
 end
 
+get '/genre' do
+  reply_rand_genre.to_s
+end
+
 def client
   @client ||= Line::Bot::Client.new { |config|
     config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
