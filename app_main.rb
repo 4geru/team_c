@@ -1,7 +1,8 @@
 require 'sinatra'
 require 'line/bot'
 require './messages'
-# 微小変更部分！確認用。
+require './models/genre.rb'
+
 get '/' do
   "Hello world"
 end
