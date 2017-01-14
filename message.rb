@@ -3,7 +3,7 @@ require './rand'
 def reply_message(message)
 	message = {
     type: 'text',
-    text: event.message['text']
+    text: message
   }
 end
 
