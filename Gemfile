@@ -11,10 +11,5 @@ gem 'sinatra-activerecord'
 # rake
 gem 'rake'
 
-group :development do
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-end
+gem 'sqlite3', groups: %w(test development), require: false
+gem 'pg', groups: %w(production), require: false
