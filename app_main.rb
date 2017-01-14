@@ -30,7 +30,7 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
-        elsif 
+        else
           client.reply_message(event['replyToken'], reply_message)
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
