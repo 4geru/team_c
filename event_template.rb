@@ -1,4 +1,4 @@
-def art_template(title)
+def art_template
 {
   "type": "template",
   "altText": "this is a carousel template",
