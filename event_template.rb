@@ -34,3 +34,4 @@ def event_template(title, location, fee, body,image, num)
        ]
     }
   }
+end
