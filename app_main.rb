@@ -39,7 +39,8 @@ post '/callback' do
           fee = "fee"
           body = "body"
           image = "https://example.com/bot/images/item1.jpg"
-            client.reply_message(event['replyToken'], event_template(title, location, fee, body, image, 0))
+          num = 1
+            client.reply_message(event['replyToken'], event_template(title, location, fee, body, image, num))
 
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
