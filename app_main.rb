@@ -34,8 +34,9 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template)
 
         elsif event.message['text'] =~ /イベント/
-          art = Art.new
-          art.set title: "title", location: "location", fee:"fee", body:"body", image:"image"
+#          art = Art.new
+#          art.set title: "title", location: "location", fee:"fee", body:"body", image:"image"
+          art = ["title", "location", "fee", "body", "image"]
 #          title = 'title'
 #          location = 'location'
 #          fee = "fee"
