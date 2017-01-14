@@ -5,13 +5,13 @@ def event_template(title, location, fee, body, image, num)
     "template": {
       "type": "carousel",
       "columns": [
-        for i in 0..num
+        #for i in 0..num
           {
-            "thumbnailImageUrl": image[i],
-            "title": title[i],
+            "thumbnailImageUrl": image,
+            "title": title,
             "text": location[i],
-            "text": fee[i],
-            "text": body[i],
+#            "text": fee[i],
+#            "text": body[i],
 =begin
             "actions": [
               {
@@ -32,7 +32,7 @@ def event_template(title, location, fee, body, image, num)
             ]
 =end
           }
-        end
+        #end
        ]
     }
   }
