@@ -1,8 +1,11 @@
+require 'bundler/setup'
+Bundler.require
+require 'sinatra/reloader' if development?
+
 require 'sinatra'
 require 'line/bot'
 require './messages'
 require './models/genre.rb'
-require 'sinatra/reloader' if development?
 
 get '/' do
   "Hello world"
