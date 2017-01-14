@@ -8,9 +8,9 @@ def art_template
       "columns": [
 #        art.colum
         {
-          "thumbnailImageUrl": art[4],
-          "title": art[0],
-          "text": art[1],
+          "thumbnailImageUrl": "http://example.com/bot/images/item1.jpg"#art[4],
+          "title": "title"#art[0],
+          "text": "location"#art[1],
           "actions": [
               {
                   "type": "postback",
