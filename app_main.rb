@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'line/bot'
-
+require './messages'
 # 微小変更部分！確認用。
 get '/' do
   "Hello world"
@@ -27,60 +27,11 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        message = {
-          "type": "template",
-          "altText": "this is a carousel template",
-          "template": {
-              "type": "carousel",
-              "columns": [
-                  {
-                    "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-                    "title": "this is menu",
-                    "text": "description",
-                    "actions": [
-                        {
-                            "type": "postback",
-                            "label": "Buy",
-                            "data": "action=buy&itemid=111"
-                        },
-                        {
-                            "type": "postback",
-                            "label": "Add to cart",
-                            "data": "action=add&itemid=111"
-                        },
-                        {
-                            "type": "uri",
-                            "label": "View detail",
-                            "uri": "http://example.com/page/111"
-                        }
-                    ]
-                  },
-                  {
-                    "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                    "title": "this is menu",
-                    "text": "description",
-                    "actions": [
-                        {
-                            "type": "postback",
-                            "label": "Buy",
-                            "data": "action=buy&itemid=222"
-                        },
-                        {
-                            "type": "postback",
-                            "label": "Add to cart",
-                            "data": "action=add&itemid=222"
-                        },
-                        {
-                            "type": "uri",
-                            "label": "View detail",
-                            "uri": "http://example.com/page/222"
-                        }
-                    ]
-                  }
-              ]
-          }
-        }
-        client.reply_message(event['replyToken'], message)
+        if event.message['text'] =~ /ジャンル/
+          client.reply_message(event['replyToken'], reply_rand_genre)
+        elsif event.message['text'] =~ /テンプレート/
+          client.reply_message(event['replyToken'], reply_template)
+        end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
