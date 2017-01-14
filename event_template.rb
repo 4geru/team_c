@@ -12,6 +12,7 @@ def event_template(title, location, fee, body, image, num)
             "text": location[i],
             "text": fee[i],
             "text": body[i],
+=begin
             "actions": [
               {
                 "type": "postback",
@@ -29,6 +30,7 @@ def event_template(title, location, fee, body, image, num)
                 "data": "action=hoge",
               }
             ]
+=end
           }
         end
        ]
