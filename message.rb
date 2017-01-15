@@ -76,7 +76,7 @@ def reply_template_date
 	  "altText": "this is a buttons template",
 	  "template": {
 	      "type": "buttons",
-	      "thumbnailImageUrl": ,
+	      "thumbnailImageUrl": "",
 	      "title": "いつ頃がいいですか？",
 	      "text": "",
 	      "actions": [
