@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'line/bot'
-require 'message'
+require './message'
 
 get '/' do
   "Hello world"
