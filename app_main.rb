@@ -59,7 +59,7 @@ post '/callback' do
         tf.write(response.body)
       end
     when Line::Bot::Event::Postback
-      client.reply_message(event['replyToken'], reply_message('反応したよ'))
+      client.reply_message(event['replyToken'], event.postback.data)
     end
   }
 
