@@ -5,6 +5,9 @@ require 'sinatra/reloader' if development?
 require 'sinatra'
 require 'line/bot'
 
+require 'logger'
+ 
+log = Logger.new('/tmp/log')
 
 get '/' do
   "Hello world"
@@ -27,15 +30,22 @@ post '/callback' do
 
  events = client.parse_events_from(body)
   events.each { |event|
+    log.debug('catch evet')
     case event
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
+        log.debug('catch text')
+
         message = {
           type: 'text',
           text: event.message['text']
         }
+        log.debug('make message')
+
         client.reply_message(event['replyToken'], message)
+        log.debug('reply message')
+
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
