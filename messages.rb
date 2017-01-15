@@ -19,8 +19,8 @@ def reply_carousel_museums(museums)
       "columns": [
         hoge(museums[0]),
        	hoge(museums[1]),
-       	hoge(museums[0]),
-        hoge(museums[0]),
+       	hoge(museums[2]),
+        hoge(museums[3]),
        	hoge(museums[0])
       ]
   }
@@ -80,8 +80,7 @@ def reply_museum_datas
 		  	res["area"]  = event.elements['Venue/Area'].text
 		  	res["body"]  = event.elements['Description'].text.slice(0,60)
 		  	array.push(res)
-		  	puts res
-		  end
+		 	end
 		  puts array.count
 	  	return array
 	  when Net::HTTPRedirection
