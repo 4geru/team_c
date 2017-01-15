@@ -4,8 +4,6 @@ require 'sinatra/reloader' if development?
 
 require 'sinatra'
 require 'line/bot'
-require './message'
-require './models/genre.rb'
 
 
 get '/' do
