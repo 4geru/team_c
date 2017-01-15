@@ -86,7 +86,8 @@ def carousel_columns(category, page)
 						"uri": "http://www.tokyoartbeat.com/event/2016/E29C"
 				}
 			]
-			return contents
+		}
+		return contents
 end
 
 def reply_carousel(category, page)
@@ -96,7 +97,7 @@ def reply_carousel(category, page)
     "template": {
         "type": "carousel",
         "columns": [
-					carousel_columns(category, page),
+#					carousel_columns(category, page),
 #					carousel_columns(category, page+1),
 #					carousel_columns(category, page+2),
 #					carousel_columns(category, page+3).
