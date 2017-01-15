@@ -1,10 +1,19 @@
+require 'bundler/setup'
+Bundler.require
+require 'sinatra/reloader' if development?
+
 require 'sinatra'
 require 'line/bot'
 require './message'
+require './models/genre.rb'
+require './event_template'
 
-# 微小変更部分！確認用。
 get '/' do
   "Hello world"
+end
+
+get '/genre' do
+  reply_rand_genre.to_s
 end
 
 def client
@@ -28,8 +37,17 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /テンプレート/
+        if event.message['text'] =~ /ジャンル/
+          client.reply_message(event['replyToken'], reply_rand_genre)
+        elsif event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
+        elsif event.message['text'] =~ /イベント/
+          title = 'title'
+          location = 'location'
+          fee = "fee"
+          body = "body"
+          image = "https://example.com/bot/images/item1.jpg"
+          client.reply_message(event['replyToken'], art_template(title, location, fee, body, image))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
