@@ -79,6 +79,8 @@ def reply_template_date
 	      "type": "carousel",
 	      "columns": [
 	          reply_template_contents,
+	          reply_template_contents,
+	          reply_template_contents,
 	          reply_template_contents
 	      ]
 	  }
