@@ -11,8 +11,6 @@ def reply_message(message='')
 end
 
 def reply_carousel_museums(museums)
-	puts hoge(museums[0])
-	puts hoge(museums[1])
 	puts hoge(museums[2])
 {
   "type": "template",
@@ -23,7 +21,8 @@ def reply_carousel_museums(museums)
         hoge(museums[0]),
        	hoge(museums[1]),
        	hoge(museums[2]),
-       	hoge(museums[3])
+       	hoge(museums[3]),
+       	hoge(museums[4])
       ]
   }
 }
@@ -80,7 +79,7 @@ def reply_museum_datas
 		  	res["title"] = event.elements['Name'].text
 		  	res["url"]   = event.attribute('href').to_s
 		  	res["area"]  = event.elements['Venue/Area'].text
-		  	res["body"]  = event.elements['Description'].text.gsub(/\\n/, '').slice(0,59)
+		  	res["body"]  = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
 		  	array.push(res)
 		 	end
 		  puts array.count
