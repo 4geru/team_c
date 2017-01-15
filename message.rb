@@ -1,8 +1,9 @@
 require './rand_message'
+
 def reply_rand_genre
 	message = {
 	  type: 'text',
-	  text: rand_genre + " はいかがでしょうか？"
+	  text: rand_genre + " 系はいかがでしょうか？"
 	}
 end
 
@@ -66,5 +67,35 @@ def reply_message(message)
 	message = {
 	  type: 'text',
 	  text: message
+	}
+end
+
+def reply_template_date
+	{
+	  "type": "template",
+	  "altText": "this is a buttons template",
+	  "template": {
+	      "type": "buttons",
+	      "thumbnailImageUrl": ,
+	      "title": "いつ頃がいいですか？",
+	      "text": "",
+	      "actions": [
+	          {
+	            "type": "今日",
+	            "label": "Buy",
+	            "data": ""
+	          },
+	          {
+	            "type": "明日",
+	            "label": "Add to cart",
+	            "data": ""
+	          },
+	          {
+	            "type": "週末",
+	            "label": "View detail",
+	            "uri": ""
+	          }
+	      ]
+	  }
 	}
 end
