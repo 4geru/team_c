@@ -62,7 +62,7 @@ def reply_template
 	}
 end
 
-def reply_rand_genre(message)
+def reply_message(message)
 	message = {
 	  type: 'text',
 	  text: message
