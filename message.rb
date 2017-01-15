@@ -76,7 +76,7 @@ def reply_template_date
 	  "altText": "this is a buttons template",
 	  "template": {
 	      "type": "buttons",
-	      "thumbnailImageUrl": File.open("./public/img/question.jpg", "r"),
+	      "thumbnailImageUrl": File.open("/img/question.jpg", "r"),
 	      "title": "Menu",
 	      "text": "Please select",
 	      "actions": [
