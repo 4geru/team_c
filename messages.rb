@@ -17,16 +17,16 @@ def reply_carousel_museums(museums)
   "template": {
       "type": "carousel",
       "columns": [
-        reply_carousel_museum_content(museums[0]),
-       	reply_carousel_museum_content(museums[1]),
-       	reply_carousel_museum_content(museums[2]),
-        reply_carousel_museum_content(museums[3]),
-       	reply_carousel_museum_content(museums[4])
+        hoge(museums[0]),
+       	hoge(museums[1]),
+       	hoge(museums[2]),
+        hoge(museums[3]),
+       	hoge(museums[4])
       ]
   }
 }
 end
-def reply_carousel_museum_content(museum)
+def hoge(museum)
 	{
 		"thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
     "title": museum["title"] + ' ' + museum["area"],
