@@ -18,7 +18,7 @@ def reply_carousel_museums(museums)
       "type": "carousel",
       "columns": [
         hoge(museums[0]),
-       	hoge(museums[0]),
+       	hoge(museums[1]),
        	hoge(museums[0]),
         hoge(museums[0]),
        	hoge(museums[0])
@@ -82,6 +82,7 @@ def reply_museum_datas
 		  	array.push(res)
 		  	puts res
 		  end
+		  puts array.count
 	  	return array
 	  when Net::HTTPRedirection
 	  	puts 'warn'
