@@ -45,8 +45,8 @@ post '/callback' do
             "previewImageUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png"
         }
         puts message.to_s
-        puts(client.reply_message(event['replyToken'], message))
-        puts(client.reply_message(event['replyToken'], message).body)
+        puts client.reply_message(event['replyToken'], message)
+        puts client.reply_message(event['replyToken'], message).body
         client.reply_message(event['replyToken'], message)
         puts 'reply message'
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
