@@ -8,6 +8,7 @@ require './message'
 require './models/genre.rb'
 require './event_template'
 
+
 get '/' do
   "Hello world"
 end
@@ -51,12 +52,11 @@ post '/callback' do
         elsif event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
         elsif event.message['text'] =~ /イベント/
-          title = 'title'
-          location = 'location'
-          fee = "fee"
-          body = "body"
-          image = "https://example.com/bot/images/item1.jpg"
-          client.reply_message(event['replyToken'], art_template(title, location, fee, body, image))
+
+          category = "hoge"
+          page = "hoge"
+          client.reply_message(event['replyToken'], replay_carousel(category, page))
+
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
