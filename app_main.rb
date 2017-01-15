@@ -44,8 +44,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template)
         elsif event.message['text'] =~ /イベント/
 
-          category = hoge
-          page = hoge
+          category = "hoge"
+          page = "hoge"
           client.reply_message(event['replyToken'], replay_carousel(category, page))
 
         else
