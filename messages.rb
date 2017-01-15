@@ -23,7 +23,7 @@ def reply_template_museum(data)
 	          {
 	            "type": "uri",
 	            "label": "詳しく",
-	            "uri": "http://example.com/page/123"
+	            "uri": data["url"]
 	          }
 	      ]
 	  }
