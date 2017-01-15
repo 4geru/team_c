@@ -76,24 +76,24 @@ def reply_template_date
 	  "altText": "this is a buttons template",
 	  "template": {
 	      "type": "buttons",
-	      "thumbnailImageUrl": "",
-	      "title": "いつ頃がいいですか？",
-	      "text": "",
+	      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+	      "title": "Menu",
+	      "text": "Please select",
 	      "actions": [
 	          {
-	            "type": "今日",
+	            "type": "postback",
 	            "label": "Buy",
-	            "data": ""
+	            "data": "action=buy&itemid=123"
 	          },
 	          {
-	            "type": "明日",
+	            "type": "postback",
 	            "label": "Add to cart",
-	            "data": ""
+	            "data": "action=add&itemid=123"
 	          },
 	          {
-	            "type": "週末",
+	            "type": "uri",
 	            "label": "View detail",
-	            "uri": ""
+	            "uri": "http://example.com/page/123"
 	          }
 	      ]
 	  }
