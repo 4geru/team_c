@@ -22,8 +22,7 @@ def reply_carousel_museums(museums)
           	hoge,
           	hoge,
           	hoge
-            ]
-          }
+            
       ]
   }
 }
@@ -51,7 +50,6 @@ def hoge
                 }
             ]
           }
-
 end
 def reply_carousel_museum_content(museum)
 	{
