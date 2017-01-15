@@ -4,7 +4,7 @@ require 'sinatra/reloader' if development?
 
 require 'sinatra'
 require 'line/bot'
-require './messages'
+require './message'
 require './models/genre.rb'
 require './event_template'
 
