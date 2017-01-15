@@ -28,35 +28,24 @@ post '/callback' do
     error 400 do 'Bad Request' end
   end
 
- events = client.parse_events_from(body)
+  events = client.parse_events_from(body)
   events.each { |event|
-    log.debug('catch evet')
+    puts 'get event'
     case event
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        log.debug('catch text')
-
+        puts 'get message'
         message = {
           type: 'text',
           text: event.message['text']
         }
-        log.debug('make message')
-
+        puts message.to_s
         client.reply_message(event['replyToken'], message)
-        log.debug('reply message')
-
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
         tf.write(response.body)
-      else 
-        message = {
-          type: 'text',
-          text: 'other case'
-        }
-        client.reply_message(event['replyToken'], message)
-        log.debug('reply message')
       end
     end
   }
