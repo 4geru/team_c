@@ -17,41 +17,27 @@ def reply_carousel_museums(museums)
   "template": {
       "type": "carousel",
       "columns": [
-          	hoge(museums[0]),
-          	hoge(museums[0]),
-          	hoge(museums[0]),
-          	hoge(museums[0]),
-          	hoge(museums[0])
+        reply_carousel_museum_content(museums[0]),
+       	reply_carousel_museum_content(museums[1]),
+       	reply_carousel_museum_content(museums[2]),
+        reply_carousel_museum_content(museums[3]),
+       	reply_carousel_museum_content(museums[4])
       ]
   }
 }
 end
-def hoge(museum)
-	{
-"thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-           "title": museum["title"] + ' ' + museum["area"],
-	  "text": museum["body"],
-	  "actions": [
-                {
-                    "type": "uri",
-		    "label": "詳しく",
-	      "uri": museum["url"]
-                }
-            ]
-          }
-end
 def reply_carousel_museum_content(museum)
 	{
-  	"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-	  "title": museum["title"] + ' ' + museum["area"],
+		"thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+    "title": museum["title"] + ' ' + museum["area"],
 	  "text": museum["body"],
 	  "actions": [
-	    {
-		    "type": "uri",
+      {
+        "type": "uri",
 		    "label": "詳しく",
-	      "uri": museum["url"]
-	    }
-	  ]
+	  	  "uri": museum["url"]
+      }
+    ]
   }
 end
 
