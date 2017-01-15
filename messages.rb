@@ -79,7 +79,7 @@ def reply_museum_datas
 		  	res["title"] = event.elements['Name'].text
 		  	res["url"]   = event.attribute('href').to_s
 		  	res["area"]  = event.elements['Venue/Area'].text
-		  	res["body"]  =  event.elements['Description'].text.slice(0,60)
+		  	res["body"]  = event.elements['Description'].text.slice(0,60)
 		  	array.push(res)
 		  	puts res
 		  end
@@ -110,12 +110,13 @@ def reply_museum_data
 	  case response
 	  when Net::HTTPSuccess
 	  	doc = REXML::Document.new(response.body)
+		  puts 'move'
 	   	res = {}
-		  res["title"] = event.elements['Name'].text
-		 	res["url"]   = event.attribute('href').to_s
-		 	res["area"]  = event.elements['Venue/Area'].text
-	  	res["body"]  =  event.elements['Description'].text.slice(0,60)
-	  	reuturn res
+		  res["title"] = doc.elements['Events/Event/Name'].text
+		 	res["url"]   = doc.elements['Events/Event'].attribute('href').to_s
+		 	res["area"]  = doc.elements['Events/Event/Venue/Area'].text
+	  	res["body"]  = doc.elements['Events/Event/Description'].text.slice(0,60)
+	  	return res
 	  when Net::HTTPRedirection
 	  	puts 'warn'
 	    logger.warn("Redirection: code=#{response.code} message=#{response.message}")
