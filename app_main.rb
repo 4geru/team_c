@@ -12,8 +12,13 @@ get '/' do
   "Hello world"
 end
 
+<<<<<<< HEAD
+get '/date' do
+  reply_template_date.to_s
+=======
 get '/genre' do
   reply_rand_genre.to_s
+>>>>>>> 2f95499a2191af0aa96647c83e92e233b22a49a1
 end
 
 def client
@@ -37,7 +42,11 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /ジャンル/
+        if event.message['text'] =~ /いいね/
+          client.reply_message(event['replyToken'], reply_template_date)
+        if event.message['text'] =~ /イベント/
+          client.reply_message(event['replyToken'], reply_template_events)
+        elsif event.message['text'] =~ /ジャンル/
           client.reply_message(event['replyToken'], reply_rand_genre)
         elsif event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
@@ -56,6 +65,8 @@ post '/callback' do
         tf = Tempfile.open("content")
         tf.write(response.body)
       end
+    when Line::Bot::Event::Postback
+      client.reply_message(event['replyToken'], reply_message(event.type))
     end
   }
 
