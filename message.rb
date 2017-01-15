@@ -71,31 +71,42 @@ def reply_message(message)
 end
 
 def reply_template_date
+	page = 0
 	{
 	  "type": "template",
-	  "altText": "this is a buttons template",
+	  "altText": "this is a carousel template",
 	  "template": {
-	      "type": "buttons",
-	      "thumbnailImageUrl": "https://pbs.twimg.com/media/C2LzhPpUkAA3X5q.jpg",
-	      "title": "Menu",
-	      "text": "Please select",
-	      "actions": [
-	          {
-	            "type": "postback",
-	            "label": "Buy",
-	            "data": "action=buy&itemid=123"
-	          },
-	          {
-	            "type": "postback",
-	            "label": "Add to cart",
-	            "data": "action=add&itemid=123"
-	          },
-	          {
-	            "type": "uri",
-	            "label": "View detail",
-	            "uri": "http://example.com/page/123"
-	          }
+	      "type": "carousel",
+	      "columns": [
+	         	reply_template_contents(category_id,page),
+	         	reply_template_contents(category_id,page+1),
+	         	reply_template_contents(category_id,page+2),
 	      ]
 	  }
+	}
+end
+
+def reply_template_contents(category_id=-1,page=0)
+	{
+	  "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+	  "title": "this is menu",
+	  "text": "description",
+	  "actions": [
+	    {
+	      "type": "postback",
+	      "label": "Buy",
+	      "data": "action=buy&itemid=111"
+	    },
+	    {
+	      "type": "postback",
+	      "label": "Add to cart",
+	      "data": "action=add&itemid=111"
+	    },
+	    {
+	      "type": "uri",
+	  	  "label": "View detail",
+		    "uri": "http://example.com/page/111"
+	    }
+	  ]
 	}
 end
