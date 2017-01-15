@@ -15,7 +15,7 @@ end
 
 def client
   @client ||= Line::Bot::Client.new { |config|
-#    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
     config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
   }
 end
@@ -40,9 +40,10 @@ post '/callback' do
         puts event.message['text']
         puts event['replyToken']
         message = {
-          type: 'text',
-          text: event.message['text']
-        }
+    "type": "image",
+    "originalContentUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png",
+    "previewImageUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png"
+}
         puts message.to_s
         client.reply_message(event['replyToken'], message)
         puts 'reply message'
