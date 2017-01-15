@@ -21,7 +21,8 @@ def reply_data
 	  when Net::HTTPSuccess
 	  	doc = REXML::Document.new(response.body)
 	  	event = doc.elements['Events']
-	  	res =  "title " + event.elements['Event'].attribute('href').to_s
+	  	res =  "title " + event.elements['Event/Name'].text
+	  	res +=  "\nurl " + event.elements['Event'].attribute('href').to_s
 	  	res += "\narea " + event.elements['Event/Venue/Area'].text
 	  	res += "\nbody " + event.elements['Event/Description'].text.slice(0,60)
 
