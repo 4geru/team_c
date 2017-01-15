@@ -12,17 +12,17 @@ def art_template(title, location, fee, body, image)
             "actions": [
                 {
                     "type": "postback",
-                    "label": "Buy",
+                    "label": "ここに行く",
                     "data": "action=buy&itemid=111"
                 },
                 {
                     "type": "postback",
-                    "label": "Add to cart",
+                    "label": "キープする",
                     "data": "action=add&itemid=111"
                 },
                 {
                     "type": "uri",
-                    "label": "View detail",
+                    "label": "くわしく見る",
                     "uri": "http://example.com/page/111"
                 }
             ]
