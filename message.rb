@@ -1,8 +1,9 @@
 require './rand_message'
+
 def reply_rand_genre
 	message = {
 	  type: 'text',
-	  text: rand_genre
+	  text: rand_genre + " はいかがでしょうか？"
 	}
 end
 
@@ -59,5 +60,12 @@ def reply_template
 	          }
 	      ]
 	  }
+	}
+end
+
+def reply_message(message)
+	message = {
+	  type: 'text',
+	  text: message
 	}
 end
