@@ -23,7 +23,7 @@ def art_template(title, location, fee, body, image)
                 {
                     "type": "uri",
                     "label": "くわしく見る",
-                    "uri": "http://example.com/page/111"
+                    "uri": "http://www.tokyoartbeat.com/event/2016/E29C"
                 }
             ]
           }
