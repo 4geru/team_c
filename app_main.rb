@@ -31,6 +31,7 @@ post '/callback' do
   events = client.parse_events_from(body)
   events.each { |event|
     puts 'get event'
+    puts "#{event.to_s}"
     case event
     when Line::Bot::Event::Message
       case event.type
@@ -42,6 +43,7 @@ post '/callback' do
         }
         puts message.to_s
         client.reply_message(event['replyToken'], message)
+        puts 'reply message'
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
