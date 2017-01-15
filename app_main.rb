@@ -12,8 +12,13 @@ get '/' do
   "Hello world"
 end
 
+<<<<<<< HEAD
 get '/date' do
   reply_template_date.to_s
+=======
+get '/genre' do
+  reply_rand_genre.to_s
+>>>>>>> 2f95499a2191af0aa96647c83e92e233b22a49a1
 end
 
 def client
