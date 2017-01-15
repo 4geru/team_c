@@ -6,7 +6,6 @@ require 'sinatra'
 require 'line/bot'
 require './message'
 require './models/genre.rb'
-require './event_template'
 
 
 get '/' do
