@@ -5,6 +5,7 @@ def art_template
   "template": {
       "type": "carousel",
       "columns": [
+        for i in 0..2
           {
             "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
             "title": "title",
@@ -27,6 +28,7 @@ def art_template
                 }
             ]
           },
+        end
       ]
   }
 }
