@@ -29,7 +29,7 @@ post '/callback' do
         if event.message['text'] =~ /情報/
 	        client.reply_message(event['replyToken'], reply_message(reply_data))
         else
-	        client.reply_message(event['replyToken'], reply_message(event.message['text']))
+	        client.reply_message(event['replyToken'], reply_template_museum(event.message['text']))
   			end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
