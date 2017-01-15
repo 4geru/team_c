@@ -2,7 +2,7 @@ require 'sinatra'
 require 'line/bot'
 require './messages'
 get '/' do
-	reply_template_museum(reply_data).to_s
+	reply_carousel_museums(reply_museum_datas).to_s
 end
 
 def client
@@ -26,8 +26,10 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /情報/
-	        client.reply_message(event['replyToken'], reply_template_museum(reply_data))
+        if event.message['text'] =~ /寝かせて/
+          client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas).to_s)
+        elsif event.message['text'] =~ /情報/
+	        client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         else
 	        client.reply_message(event['replyToken'], reply_message(event.message['text']))
   			end

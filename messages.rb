@@ -10,27 +10,59 @@ def reply_message(message='')
   }
 end
 
-def reply_template_museum(data)
+def reply_carousel_museums(museums)
+{
+  "type": "template",
+  "altText": "this is a carousel template",
+  "template": {
+    "type": "carousel",
+    "columns": [
+      reply_carousel_museum_content(museums[0]),
+      reply_carousel_museum_content(museums[1]),
+      reply_carousel_museum_content(museums[2]),
+      reply_carousel_museum_content(museums[3]),
+      reply_carousel_museum_content(museums[4])
+     ]
+  }
+}
+end
+
+def reply_carousel_museum_content(museum)
+	{
+  	"thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+   	"title": museum["title"] + ' ' + museum["area"],
+	  "text": museum["body"],
+	  "actions": [
+      {
+      	"type": "uri",
+        "label": "View detail",
+        "uri": museum['url']
+      }
+  	]
+  }
+end
+
+def reply_template_museum(museum)
 	{
 	  "type": "template",
 	  "altText": "this is a buttons template",
 	  "template": {
 	      "type": "buttons",
 	      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
-	      "title": data["title"] + ' ' + data["area"],
-	      "text": data["body"],
+	      "title": museum["title"] + ' ' + museum["area"],
+	      "text": museum["body"],
 	      "actions": [
 	          {
 	            "type": "uri",
 	            "label": "詳しく",
-	            "uri": data["url"]
+	            "uri": museum["url"]
 	          }
 	      ]
 	  }
 	}
 end
 
-def reply_data
+def reply_museum_datas
 	uri = URI.parse("http://www.tokyoartbeat.com/list/event_type_print_illustration.ja.xml")
 	begin
 	  response = Net::HTTP.start(uri.host) do |http|
@@ -40,13 +72,50 @@ def reply_data
 	  case response
 	  when Net::HTTPSuccess
 	  	doc = REXML::Document.new(response.body)
-	  	event = doc.elements['Events']
-	  	res = {}
-	  	res["title"] = event.elements['Event/Name'].text
-	  	res["url"]   = event.elements['Event'].attribute('href').to_s
-	  	res["area"]  = event.elements['Event/Venue/Area'].text
-	  	res["body"]  =  event.elements['Event/Description'].text.slice(0,60)
-	  	return res
+	  	array = []
+	  	doc.elements.each('Events/Event') do |event|
+#	  	doc.elements['Events'].each do |event|
+		  	res = {}
+		  	res["title"] = event.elements['Name'].text
+		  	res["url"]   = event.attribute('href').to_s
+		  	res["area"]  = event.elements['Venue/Area'].text
+		  	res["body"]  =  event.elements['Description'].text.slice(0,60)
+		  	array.push(res)
+		  	puts res
+		  end
+	  	return array
+	  when Net::HTTPRedirection
+	  	puts 'warn'
+	    logger.warn("Redirection: code=#{response.code} message=#{response.message}")
+	  else
+	  	puts 'error'
+	    logger.error("HTTP ERROR: code=#{response.code} message=#{response.message}")
+	  end
+	rescue IOError => e
+		puts e.message
+	rescue JSON::ParserError => e
+		puts e.message
+	rescue => e
+		puts e.message
+	end
+end
+
+def reply_museum_data
+	uri = URI.parse("http://www.tokyoartbeat.com/list/event_type_print_illustration.ja.xml")
+	begin
+	  response = Net::HTTP.start(uri.host) do |http|
+	    http.get(uri.request_uri)
+	  end
+	  puts 'get response'
+	  case response
+	  when Net::HTTPSuccess
+	  	doc = REXML::Document.new(response.body)
+	   	res = {}
+		  res["title"] = event.elements['Name'].text
+		 	res["url"]   = event.attribute('href').to_s
+		 	res["area"]  = event.elements['Venue/Area'].text
+	  	res["body"]  =  event.elements['Description'].text.slice(0,60)
+	  	reuturn res
 	  when Net::HTTPRedirection
 	  	puts 'warn'
 	    logger.warn("Redirection: code=#{response.code} message=#{response.message}")
