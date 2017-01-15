@@ -41,10 +41,6 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_rand_genre)
         elsif event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
-        else
-          client.reply_message(event['replyToken'], event.message['text'])
-        elsif event.message['text'] =~ /テンプレート/
-          client.reply_message(event['replyToken'], reply_template)
         elsif event.message['text'] =~ /イベント/
           title = 'title'
           location = 'location'
