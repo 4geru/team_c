@@ -7,7 +7,7 @@ require 'line/bot'
 
 require 'logger'
  
-log = Logger.new('/tmp')
+log = Logger.new('~')
 
 get '/' do
   "Hello world"
