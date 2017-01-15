@@ -25,7 +25,8 @@ def reply_carousel_museums(museums)
         hoge(museums[0]),
        	hoge(museums[1]),
        	hoge(museums[2]),
-        hoge(museums[1])
+        hoge(museums[3]),
+        hoge(museums[4])
       ]
   }
 }
@@ -82,7 +83,7 @@ def reply_museum_datas
 		  	res["title"] = event.elements['Name'].text
 		  	res["url"]   = event.attribute('href').to_s
 		  	res["area"]  = event.elements['Venue/Area'].text
-		  	res["body"]  = event.elements['Description'].text.slice(0,60)
+		  	res["body"]  = event.elements['Description'].text.gsub(/\\n/, '').slice(0,60)
 		  	array.push(res)
 		 	end
 		  puts array.count
