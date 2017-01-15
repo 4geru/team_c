@@ -16,27 +16,29 @@ def reply_data
 	  response = Net::HTTP.start(uri.host) do |http|
 	    http.get(uri.request_uri)
 	  end
-
+	  puts 'get response'
 	  case response
 	  when Net::HTTPSuccess
 	  	doc = REXML::Document.new(response.body)
-	  	res = doc.class
-	  	res += "URL #{doc.elements['Events/Event'].attribute('href')}\n"
-	  	res += "Name #{doc.elements['Events/Event/Name'].text}\n"
-	  	res += "Adress #{doc.elements['Events/Event/Venue/Address'].text}\n"
-	  	res += "Area #{doc.elements['Events/Event/Venue/Area'].text}\n"
-	  	res += "Description #{doc.elements['Events/Event/Description'].text.slice(0,60)}\n"
-			return res
+	  	event = doc.elements['Events']
+	  	res =  "title " + event.elements['Event'].attribute('href').to_s
+	  	res += "\narea " + event.elements['Event/Venue/Area'].text
+	  	res += "\nbody " + event.elements['Event/Description'].text.slice(0,60)
+
+
+	  	return res
 	  when Net::HTTPRedirection
+	  	puts 'warn'
 	    logger.warn("Redirection: code=#{response.code} message=#{response.message}")
 	  else
+	  	puts 'error'
 	    logger.error("HTTP ERROR: code=#{response.code} message=#{response.message}")
 	  end
 	rescue IOError => e
-		logger.error(e.message)
+		puts e.message
 	rescue JSON::ParserError => e
-		logger.error(e.message)
+		puts e.message
 	rescue => e
-		logger.error(e.message)
+		puts e.message
 	end
 end
