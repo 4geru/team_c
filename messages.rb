@@ -83,7 +83,7 @@ def reply_museum_datas
 		  	res["title"] = event.elements['Name'].text
 		  	res["url"]   = event.attribute('href').to_s
 		  	res["area"]  = event.elements['Venue/Area'].text
-		  	res["body"]  = event.elements['Description'].text.gsub(/\\n/, '').slice(0,60)
+		  	res["body"]  = event.elements['Description'].text.gsub(/\\n/, '').slice(0,59)
 		  	array.push(res)
 		 	end
 		  puts array.count
