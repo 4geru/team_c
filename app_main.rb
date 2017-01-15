@@ -40,11 +40,13 @@ post '/callback' do
         puts event.message['text']
         puts event['replyToken']
         message = {
-    "type": "image",
-    "originalContentUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png",
-    "previewImageUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png"
-}
+            "type": "image",
+            "originalContentUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png",
+            "previewImageUrl": "https://screenshots.jp.sftcdn.net/jp/scrn/3346000/3346031/image-05-544x535.png"
+        }
         puts message.to_s
+        puts(client.reply_message(event['replyToken'], message))
+        puts(client.reply_message(event['replyToken'], message).body)
         client.reply_message(event['replyToken'], message)
         puts 'reply message'
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
