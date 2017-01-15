@@ -20,8 +20,7 @@ def reply_carousel_museums(museums)
       reply_carousel_museum_content(museums[0]),
       reply_carousel_museum_content(museums[1]),
       reply_carousel_museum_content(museums[2]),
-      reply_carousel_museum_content(museums[3]),
-      reply_carousel_museum_content(museums[4])
+      reply_carousel_museum_content(museums[3])
      ]
   }
 }
