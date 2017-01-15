@@ -6,6 +6,7 @@ require 'sinatra'
 require 'line/bot'
 require './messages'
 require './models/genre.rb'
+require './event_template'
 
 get '/' do
   "Hello world"
@@ -42,6 +43,17 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template)
         else
           client.reply_message(event['replyToken'], event.message['text'])
+        elsif event.message['text'] =~ /テンプレート/
+          client.reply_message(event['replyToken'], reply_template)
+        elsif event.message['text'] =~ /イベント/
+          title = 'title'
+          location = 'location'
+          fee = "fee"
+          body = "body"
+          image = "https://example.com/bot/images/item1.jpg"
+          client.reply_message(event['replyToken'], art_template(title, location, fee, body, image))
+        else
+          client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
