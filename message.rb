@@ -70,7 +70,7 @@ def reply_message(message)
 	}
 end
 
-def reply_template_date
+def reply_template_events
 	page = 0
 	{
 	  "type": "template",

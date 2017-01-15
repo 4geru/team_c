@@ -39,6 +39,8 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] =~ /いいね/
           client.reply_message(event['replyToken'], reply_template_date)
+        if event.message['text'] =~ /イベント/
+          client.reply_message(event['replyToken'], reply_template_events)
         elsif event.message['text'] =~ /ジャンル/
           client.reply_message(event['replyToken'], reply_rand_genre)
         elsif event.message['text'] =~ /テンプレート/
