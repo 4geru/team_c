@@ -1,13 +1,8 @@
 require 'sinatra'
 require 'line/bot'
 require './messages'
-require 'net/http'
-require 'uri'
-require 'json'
-require "rexml/document" 
-
 get '/' do
-	'hello world'
+	'hello'
 end
 
 def client

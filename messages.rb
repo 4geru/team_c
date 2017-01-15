@@ -1,3 +1,8 @@
+require 'net/http'
+require 'uri'
+require 'json'
+require "rexml/document" 
+
 def reply_message(message='')
 	message = {
     type: 'text',
