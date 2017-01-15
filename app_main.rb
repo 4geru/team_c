@@ -1,10 +1,20 @@
+require 'bundler/setup'
+Bundler.require
+require 'sinatra/reloader' if development?
+
 require 'sinatra'
 require 'line/bot'
 require './message'
+require './models/genre.rb'
+require './event_template'
 
-# 微小変更部分！確認用。
+
 get '/' do
   "Hello world"
+end
+
+get '/genre' do
+  reply_rand_genre.to_s
 end
 
 def client
@@ -28,11 +38,12 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-
-        if event.message['text'] =~ /テンプレート/
+        if event.message['text'] =~ /ジャンル/
+          client.reply_message(event['replyToken'], reply_rand_genre)
+        elsif event.message['text'] =~ /テンプレート/
           client.reply_message(event['replyToken'], reply_template)
-
         elsif event.message['text'] =~ /イベント/
+
           category = hoge
           page = hoge
           client.reply_message(event['replyToken'], replay_carousel(category, page))
@@ -40,8 +51,6 @@ post '/callback' do
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
-
-
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
