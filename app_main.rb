@@ -13,15 +13,6 @@ get '/' do
   "Hello world"
 end
 
-<<<<<<< HEAD
-get '/date' do
-  reply_template_date.to_s
-=======
-get '/genre' do
-  reply_rand_genre.to_s
->>>>>>> 2f95499a2191af0aa96647c83e92e233b22a49a1
-end
-
 def client
   @client ||= Line::Bot::Client.new { |config|
     config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -43,21 +34,15 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /いいね/
-          client.reply_message(event['replyToken'], reply_template_date)
+#        if event.message['text'] =~ /いいね/
+#          client.reply_message(event['replyToken'], reply_template_date)
         if event.message['text'] =~ /イベント/
           client.reply_message(event['replyToken'], reply_template_events)
-        elsif event.message['text'] =~ /ジャンル/
-          client.reply_message(event['replyToken'], reply_rand_genre)
-        elsif event.message['text'] =~ /テンプレート/
-          client.reply_message(event['replyToken'], reply_template)
-        elsif event.message['text'] =~ /イベント/
-
-          category = "hoge"
-          page = "hoge"
-          client.reply_message(event['replyToken'], replay_carousel(category, page))
-
-        else
+#        elsif event.message['text'] =~ /ジャンル/
+#          client.reply_message(event['replyToken'], reply_rand_genre)
+#        elsif event.message['text'] =~ /テンプレート/
+#          client.reply_message(event['replyToken'], reply_template)
+       else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
