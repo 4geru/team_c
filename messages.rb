@@ -18,10 +18,10 @@ def reply_carousel_museums(museums)
       "type": "carousel",
       "columns": [
         hoge(museums[0]),
-       	hoge(museums[1]),
-       	hoge(museums[2]),
-        hoge(museums[3]),
-       	hoge(museums[4])
+       	hoge(museums[0]),
+       	hoge(museums[0]),
+        hoge(museums[0]),
+       	hoge(museums[0])
       ]
   }
 }
