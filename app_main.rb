@@ -12,8 +12,8 @@ get '/' do
   "Hello world"
 end
 
-get '/genre' do
-  reply_rand_genre.to_s
+get '/date' do
+  reply_template_date.to_s
 end
 
 def client
