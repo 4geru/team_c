@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'line/bot'
 require './message'
-require './event_template'
 
 # 微小変更部分！確認用。
 get '/' do
@@ -34,17 +33,9 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template)
 
         elsif event.message['text'] =~ /イベント/
-#          art = Art.new
-#          art.set title: "title", location: "location", fee:"fee", body:"body", image:"image"
-          #art = ["title", "location", "fee", "body", "image"]
-          title = 'title'
-          location = 'location'
-          fee = "fee"
-          body = "body"
-          image = "https://example.com/bot/images/item1.jpg"
-#          num = 1
-            client.reply_message(event['replyToken'], art_template(title, location, fee, body, image))
-#            client.reply_message(event['replyToken'], art_template(art))
+          category = hoge
+          page = hoge
+          client.reply_message(event['replyToken'], replay_carousel(category, page))
 
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
