@@ -84,7 +84,6 @@ def reply_template_date
 	  }
 	}
 end
-end
 
 def reply_template_contents(category_id=-1,page=0)
 	 {
