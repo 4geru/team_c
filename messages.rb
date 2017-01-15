@@ -17,26 +17,25 @@ def reply_carousel_museums(museums)
   "template": {
       "type": "carousel",
       "columns": [
-          	hoge,
-            hoge,
-          	hoge,
-          	hoge,
-          	hoge
-            
+          	hoge(museums[0]),
+          	hoge(museums[0]),
+          	hoge(museums[0]),
+          	hoge(museums[0]),
+          	hoge(museums[0])
       ]
   }
 }
 end
-def hoge
+def hoge(museum)
 	{
 "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-            "title": "this is menu",
-            "text": "description",
-            "actions": [
+           "title": museum["title"] + ' ' + museum["area"],
+	  "text": museum["body"],
+	  "actions": [
                 {
                     "type": "uri",
-                    "label": "View detail",
-                    "uri": "http://example.com/page/111"
+		    "label": "詳しく",
+	      "uri": museum["url"]
                 }
             ]
           }
