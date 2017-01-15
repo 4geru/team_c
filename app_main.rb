@@ -2,7 +2,7 @@ require 'sinatra'
 require 'line/bot'
 require './messages'
 get '/' do
-  'hello world'
+  reply_carousel_museums(reply_museum_datas).to_s
 end
 
 def client

@@ -29,16 +29,16 @@ end
 
 def reply_carousel_museum_content(museum)
 	{
-  	"thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-   	"title": museum["title"] + ' ' + museum["area"],
+  	"thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+	  "title": museum["title"] + ' ' + museum["area"],
 	  "text": museum["body"],
 	  "actions": [
-      {
-      	"type": "uri",
-        "label": "View detail",
-        "uri": museum['url']
-      }
-  	]
+	    {
+		    "type": "uri",
+		    "label": "詳しく",
+	      "uri": museum["url"]
+	    }
+	  ]
   }
 end
 
