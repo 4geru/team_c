@@ -76,7 +76,7 @@ def reply_template_date
 	  "altText": "this is a buttons template",
 	  "template": {
 	      "type": "buttons",
-	      "thumbnailImageUrl": "./image.jpg",
+	      "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
 	      "title": "Menu",
 	      "text": "Please select",
 	      "actions": [
