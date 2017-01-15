@@ -14,8 +14,6 @@ def reply_carousel_museums(museums)
 	puts hoge(museums[0])
 	puts hoge(museums[1])
 	puts hoge(museums[2])
-	puts hoge(museums[3])
-	puts hoge(museums[4])
 {
   "type": "template",
   "altText": "this is a carousel template",
@@ -24,9 +22,7 @@ def reply_carousel_museums(museums)
       "columns": [
         hoge(museums[0]),
        	hoge(museums[1]),
-       	hoge(museums[2]),
-        hoge(museums[3]),
-        hoge(museums[4])
+       	hoge(museums[2])
       ]
   }
 }
