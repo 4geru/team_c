@@ -43,7 +43,7 @@ post '/callback' do
           body = "body"
           image = "https://example.com/bot/images/item1.jpg"
 #          num = 1
-            client.reply_message(event['replyToken'], event_template)
+            client.reply_message(event['replyToken'], art_template)
 #            client.reply_message(event['replyToken'], art_template(art))
 
         else
