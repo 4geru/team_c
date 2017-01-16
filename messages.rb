@@ -11,7 +11,7 @@ def reply_message(message='')
 end
 
 def reply_carousel_museums(museums)
-	randoms = (0...museums.count).to_a.sort_by{rand}[0...5]
+	randoms = (0...museums.count).to_a.shuffle![0...5]
 {
   "type": "template",
   "altText": "this is a carousel template",
