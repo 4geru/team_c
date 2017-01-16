@@ -11,7 +11,8 @@ def reply_message(message='')
 end
 
 def reply_carousel_museums(museums)
-	randoms = (0..museums.count).to_a.sort_by{rand}[0..5]
+	randoms = (0...museums.count).to_a.sort_by{rand}[0...5]
+	puts randoms
 {
   "type": "template",
   "altText": "this is a carousel template",
@@ -28,7 +29,6 @@ def reply_carousel_museums(museums)
 }
 end
 def hoge(museum)
-	puts museum["area"].size
 	{
 		"thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
     "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
