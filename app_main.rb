@@ -1,8 +1,9 @@
 require 'sinatra'
 require 'line/bot'
 require './messages'
+require './library'
 get '/' do
-  reply_carousel_museums(reply_museum_datas).to_s
+  rand_genre[:url]
 end
 
 def client

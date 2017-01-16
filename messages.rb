@@ -2,6 +2,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 require "rexml/document" 
+require './library'
 
 def reply_message(message='')
 	message = {
@@ -62,8 +63,8 @@ def reply_template_museum(museum)
 	}
 end
 
-def reply_museum_datas
-	uri = URI.parse("http://www.tokyoartbeat.com/list/event_type_print_illustration.ja.xml")
+def reply_museum_datas(url = rand_genre[:url])
+	uri = URI.parse(url)
 	begin
 	  response = Net::HTTP.start(uri.host) do |http|
 	    http.get(uri.request_uri)
