@@ -11,17 +11,18 @@ def reply_message(message='')
 end
 
 def reply_carousel_museums(museums)
+	randoms = (0..museums.count).to_a.sort_by{rand}[0..5]
 {
   "type": "template",
   "altText": "this is a carousel template",
   "template": {
       "type": "carousel",
       "columns": [
-        hoge(museums[0]),
-       	hoge(museums[1]),
-       	hoge(museums[2]),
-       	hoge(museums[3]),
-       	hoge(museums[4])
+        hoge(museums[randoms[0]]),
+       	hoge(museums[randoms[1]]),
+       	hoge(museums[randoms[2]]),
+       	hoge(museums[randoms[3]]),
+       	hoge(museums[randoms[4]])
       ]
   }
 }
