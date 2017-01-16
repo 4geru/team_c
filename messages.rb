@@ -12,7 +12,6 @@ end
 
 def reply_carousel_museums(museums)
 	randoms = (0...museums.count).to_a.sort_by{rand}[0...5]
-	puts randoms
 {
   "type": "template",
   "altText": "this is a carousel template",
