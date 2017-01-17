@@ -7,8 +7,8 @@ require 'json'
 
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
-  Keep.order("id desc").limit(5).map {|event|
-    param_decode(event['json'])['title'].to_s + ' ' + param_decode(event['json'])['created_at'].to_s
+  Keep.order("updated_at desc").limit(5).map {|event|
+    param_decode(event['json'])['title'].to_s + ' ' + param_decode(event['json'])['created_at'].to_s + ','
   }
   
   #  params(str.to_hash)
