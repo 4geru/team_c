@@ -53,6 +53,9 @@ post '/callback' do
     # Postbackの場合
     when Line::Bot::Event::Postback
       puts 'get postback'
+
+    else 
+      puts 'other type'
     end
   }
   "OK"
