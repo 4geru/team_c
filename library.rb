@@ -49,13 +49,13 @@ def param_decode(string)
 end
 
 def get_id(event)
-  case event["source"]["type"]
+  case event["type"]
   when "user"
-    return event["source"]["userId"]
+    return event["userId"]
   when "group"
-    return event["source"]["groupId"]
+    return event["groupId"]
   when "room"
-    return event["source"]["roomId"]
+    return event["roomId"]
   else
     return "error"
   end
