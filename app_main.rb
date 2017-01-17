@@ -5,7 +5,7 @@ require './library'
 require './models/keeps'
 
 get '/' do
-  hoge(reply_museum_datas[0]).to_s
+  reply_carousel_museums(reply_museum_datas).to_json.to_s
 end
 
 def client

@@ -13,24 +13,21 @@ end
 
 def reply_carousel_museums(museums)
 	randoms = (0...museums.count).to_a.shuffle![0...5]
+	puts randoms
+	randoms.map!{|item| hoge(museums[item])}
+	puts randoms
 {
   "type": "template",
   "altText": "this is a carousel template",
   "template": {
       "type": "carousel",
-      "columns": [
-        hoge(museums[randoms[0]]),
-       	hoge(museums[randoms[1]]),
-       	hoge(museums[randoms[2]]),
-       	hoge(museums[randoms[3]]),
-       	hoge(museums[randoms[4]])
-      ]
+      "columns": randoms
   }
 }
 end
 
 def hoge(museum)
-	museum[:type] = 'keep'
+	museum["type"] = 'keep'
 	{
 		"thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
     "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
@@ -47,7 +44,7 @@ def hoge(museum)
 	  	  "data": museum.to_s
       }
     ]
-  }.to_json
+  }
 end
 
 def reply_template_museum(museum)
