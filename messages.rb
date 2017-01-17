@@ -20,8 +20,8 @@ def reply_carousel_museums(museums)
   "type": "template",
   "altText": "this is a carousel template",
   "template": {
-      "type": "carousel",
-      "columns": randoms
+     "type": "carousel",
+     "columns": randoms
   }
 }
 end
