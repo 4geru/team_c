@@ -41,11 +41,13 @@ def hoge(museum)
       {
         "type": "postback",
 		    "label": "keep",
-	  	  "data": museum.to_s
+	  	  "data": museum.to_param
       }
     ]
   }
 end
+
+
 
 def reply_template_museum(museum)
 	{

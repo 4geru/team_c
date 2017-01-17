@@ -47,7 +47,8 @@ post '/callback' do
     # Postbackの場合
     when Line::Bot::Event::Postback
       puts 'get postback'
-      if event["postback"]["data"].to_json["type"] == "keep"
+      type = Hash[URI::decode_www_form(event["postback"]["data"])]
+      if event["postback"]["data"]["type"] == "keep"
         puts event["postback"]["data"]
         client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
       end
