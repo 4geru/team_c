@@ -13,8 +13,10 @@
 ActiveRecord::Schema.define(version: 20170117102904) do
 
   create_table "keeps", force: :cascade do |t|
-    t.string "channel"
-    t.string "json"
+    t.string   "channel"
+    t.string   "json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
