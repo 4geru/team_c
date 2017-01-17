@@ -5,7 +5,7 @@ require './library'
 require './models/keeps'
 
 get '/' do
-  'hello world'
+  hoge(reply_museum_datas[0]).to_s
 end
 
 def client
@@ -43,7 +43,7 @@ post '/callback' do
         tf.write(response.body)
       end
       when Line::Bot::Event::Postback
-        if event["postback"]["label"] =~ /keep/
+        if event["postback"]["data"].to_json["type"] == "keep"
         client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
       end
     end
