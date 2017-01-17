@@ -28,19 +28,8 @@ end
 
 def reply_carousel_bookmarks
 	keeps = Keep.limit(5).order(:created_time)
-	puts keeps
-	puts param_decode(keeps[0])
-	puts hoge(param_decode(keeps[0]))
-	keeps.map!{|item| hoge(param_decode(item))}
-	puts keeps
-{
-  "type": "template",
-  "altText": "this is a carousel template",
-  "template": {
-      "type": "carousel",
-      "columns": keeps
-  }
-}
+	keeps.map{|item| puts item}
+	keeps[0].to_s	
 end
 
 def hoge(museum)
