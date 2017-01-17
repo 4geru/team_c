@@ -46,8 +46,6 @@ post '/callback' do
         if event["postback"]["label"] =~ /keep/
         client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
       end
-      end
-
     end
   }
 
