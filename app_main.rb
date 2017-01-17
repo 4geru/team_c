@@ -42,6 +42,12 @@ post '/callback' do
         tf = Tempfile.open("content")
         tf.write(response.body)
       end
+      when Line::Bot::Event::Postback
+        if event["postback"]["label"] =~ /keep/
+        client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
+      end
+      end
+
     end
   }
 

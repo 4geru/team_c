@@ -28,6 +28,7 @@ def reply_carousel_museums(museums)
   }
 }
 end
+
 def hoge(museum)
 	{
 		"thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
@@ -38,6 +39,11 @@ def hoge(museum)
         "type": "uri",
 		    "label": "詳しく",
 	  	  "uri": museum["url"]
+      },
+      {
+        "type": "postback",
+		    "label": "keep",
+	  	  "data": museum.to_s
       }
     ]
   }
