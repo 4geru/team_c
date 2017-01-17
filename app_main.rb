@@ -7,11 +7,10 @@ require 'json'
 
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
-  ary = []
-  Keep.limit(5).find_each do |event|
-    ary.push(param_decode(event['json'])['title'] + ' ' + param_decode(event['json'])['created_at'])
-  end
-  ary.to_s
+  Keep.order("id desc").limit(1000).map {|post|
+    param_decode(event['json'])['title'] + ' ' + param_decode(event['json'])['created_at']
+  }
+  
   #  params(str.to_hash)
 end
 
