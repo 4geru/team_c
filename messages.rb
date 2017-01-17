@@ -47,7 +47,7 @@ def hoge(museum)
 	  	  "data": museum.to_s
       }
     ]
-  }
+  }.to_json
 end
 
 def reply_template_museum(museum)
