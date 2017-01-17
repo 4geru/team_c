@@ -55,7 +55,7 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
-      client.reply_messagAe(event['replyToken'], reply_message("type は"+event["postback"]["data"])
+      client.reply_messagAe(event['replyToken'], reply_message("type は"+event["postback"]["data"]))
 #      case event["source"]["type"]
 #      when "user"
 #        Keep.create(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
@@ -66,7 +66,6 @@ post '/callback' do
 #      end
 #      client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
 #    else 
-      puts 'other type'
     end
   }
   "OK"
