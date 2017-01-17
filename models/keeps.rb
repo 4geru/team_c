@@ -2,7 +2,7 @@
 require 'sinatra/activerecord'
 
 ActiveRecord::Base.configurations = YAML.load_file('db/database.yml')
-ActiveRecord::Base.establish_connection(:development)
+#ActiveRecord::Base.establish_connection(:development)
 
 class Keep < ActiveRecord::Base
 end
