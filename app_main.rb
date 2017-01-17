@@ -58,11 +58,11 @@ post '/callback' do
       client.reply_message(event['replyToken'], reply_message("type は"+data['title']))
       case event["source"]["type"]
       when "user"
-        Keep.update(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
+        Keep.create(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
       when "group"
-        Keep.update(:channel=>event["source"]["groupId"], :json=>event["postback"]["data"])
+        Keep.create(:channel=>event["source"]["groupId"], :json=>event["postback"]["data"])
       when "room"
-        Keep.update(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
+        Keep.create(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
       end
       client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
     else 
