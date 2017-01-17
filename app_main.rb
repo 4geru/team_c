@@ -62,6 +62,8 @@ post '/callback' do
         client.reply_message(event['replyToken'], reply_message("group idは"+groupId))
       when "room"
         client.reply_message(event['replyToken'], reply_message("room idは"+roomId))
+      else
+        client.reply_message(event['replyToken'], reply_message("type は"+event["source"]["type"]))
       end
     else 
       puts 'other type'
