@@ -55,7 +55,8 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
-      client.reply_message(event['replyToken'], reply_message(data['type']))
+      source = event["source"].to_s
+      client.reply_message(event['replyToken'], reply_message(source)
     else 
       puts 'other type'
     end
