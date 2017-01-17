@@ -43,7 +43,7 @@ post '/callback' do
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /ブックマーク/
-          client.reply_message(event['replyToken'], reply_carousel_bookmarks(reply_museum_datas))
+          client.reply_message(event['replyToken'], reply_carousel_bookmarks)
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end

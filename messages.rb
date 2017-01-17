@@ -26,7 +26,7 @@ def reply_carousel_museums(museums)
 }
 end
 
-def reply_carousel_museums(museums)
+def reply_carousel_bookmarks
 	keeps = Keep.limit(5).order(:created_time)
 	keeps.map!{|item| hoge(param_decode(item))}
 {
