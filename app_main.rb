@@ -3,9 +3,15 @@ require 'line/bot'
 require './messages'
 require './library'
 require './models/keeps'
+require 'json'
 
 get '/' do
-  reply_carousel_museums(reply_museum_datas).to_json.to_s
+#  reply_carousel_museums(reply_museum_datas).to_s
+  str = {"title"=>"野村佐紀子 「Boyfriend」", "url"=>"http://www.tokyoartbeat.com/event/2017/F6C3", "area"=>"千代田", "body"=>"成山画廊では３回目となる、野村佐紀子の写真展を致します。今展では画家の側面をもつ俳優、池田努（石原プロモーション）と画", "type"=>"keep"}
+  params = param_encode(str)
+
+  param_decode(params).to_s
+#  params(str.to_hash)
 end
 
 def client
@@ -47,11 +53,6 @@ post '/callback' do
     # Postbackの場合
     when Line::Bot::Event::Postback
       puts 'get postback'
-      type = Hash[URI::decode_www_form(event["postback"]["data"])]
-      if event["postback"]["data"]["type"] == "keep"
-        puts event["postback"]["data"]
-        client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
-      end
     end
   }
   "OK"

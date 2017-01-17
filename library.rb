@@ -27,3 +27,24 @@ def rand_genre
   ]
   genres[rand(genres.count-1)]
 end
+
+def param_encode(museum)
+  string = ""
+  f = false
+  for key in museum.keys
+    string += '&' if f == true
+    string += key + '=' + museum[key]
+    f = true
+  end
+  string
+end
+
+def param_decode(string)
+  hash = {}
+  string.split('&').map{|item| 
+    item.split('=').to_s
+    hash[item.split('=')[0]] = item.split('=')[1]
+  }
+  hash
+end
+
