@@ -40,7 +40,8 @@ post '/callback' do
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /ブックマーク/
-          client.reply_message(event['replyToken'], reply_carousel_bookmarks)
+          get_id(event["source"]["type"])
+          client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
@@ -56,14 +57,8 @@ post '/callback' do
       data = param_decode(event["postback"]["data"])
       puts data.to_s
       client.reply_message(event['replyToken'], reply_message("type は"+data['title']))
-      case event["source"]["type"]
-      when "user"
-        Keep.create(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
-      when "group"
-        Keep.create(:channel=>event["source"]["groupId"], :json=>event["postback"]["data"])
-      when "room"
-        Keep.create(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
-      end
+      channel_id = get_id(event["source"]["type"])
+      Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
       client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
     else 
     end

@@ -25,8 +25,8 @@ def reply_carousel_museums(museums)
 }
 end
 
-def reply_carousel_bookmarks
-	keeps = Keep.order("updated_at desc").limit(5).map {|event|
+def reply_carousel_bookmarks(channel='')
+	keeps = Keep.where(channel: channlel).order("updated_at desc").limit(5).map {|event|
     hoge(param_decode(event['json']))
   }
 	keeps

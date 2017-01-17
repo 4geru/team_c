@@ -48,3 +48,16 @@ def param_decode(string)
   hash
 end
 
+def get_id(event)
+  case event["source"]["type"]
+  when "user"
+    return event["source"]["userId"]
+  when "group"
+    return event["source"]["groupId"]
+  when "room"
+    return event["source"]["roomId"]
+  else
+    return "error"
+  end
+end
+
