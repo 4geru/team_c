@@ -8,7 +8,7 @@ require 'json'
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
   ary = []
-  Keep.all.find_each do |event|
+  Keep.all.limit(5).order(created_at: :desc).find_each do |event|
     ary.push(param_decode(event['json'])['title'])
   end
   ary.to_s
