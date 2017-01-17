@@ -15,7 +15,6 @@ def reply_carousel_museums(museums)
 	randoms = (0...museums.count).to_a.shuffle![0...5]
 	puts randoms
 	randoms.map!{|item| hoge(museums[item])}
-	puts randoms[0]
 {
   "type": "template",
   "altText": "this is a carousel template",
@@ -27,9 +26,18 @@ def reply_carousel_museums(museums)
 end
 
 def reply_carousel_bookmarks
-	keeps = Keep.limit(5).order(:created_time)
-	keeps.map{|item| puts item}
-	keeps[0].to_s	
+	keeps = Keep.order("updated_at desc").limit(5).map {|event|
+    hoge(param_decode(event['json']))
+  }
+	keeps
+	{
+  "type": "template",
+  "altText": "this is a carousel template",
+  "template": {
+     "type": "carousel",
+     "columns": keeps
+  }
+}
 end
 
 def hoge(museum)
