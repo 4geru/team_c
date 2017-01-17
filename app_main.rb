@@ -65,7 +65,7 @@ post '/callback' do
 #        Keep.create(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
 #      end
 #      client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
-    else 
+#    else 
       puts 'other type'
     end
   }
