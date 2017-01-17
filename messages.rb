@@ -30,7 +30,7 @@ def reply_carousel_museums(museums)
 end
 def hoge(museum)
 	{
-		"thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+		"thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
     "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
 	  "text": museum["body"],
 	  "actions": [
