@@ -26,6 +26,7 @@ post '/callback' do
   events = client.parse_events_from(body)
   events.each { |event|
     case event
+    
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
@@ -33,21 +34,23 @@ post '/callback' do
           #client.reply_message(event['replyToken'], reply_message('少しお待ちください'))
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
         elsif event.message['text'] =~ /情報/
-	        client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
+          client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         else
-	        client.reply_message(event['replyToken'], reply_message(event.message['text']))
-  			end
+          client.reply_message(event['replyToken'], reply_message(event.message['text']))
+        end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
         tf.write(response.body)
       end
-      when Line::Bot::Event::Postback
-        if event["postback"]["data"].to_json["type"] == "keep"
+
+    # Postbackの場合
+    when Line::Bot::Event::Postback
+      if event["postback"]["data"].to_json["type"] == "keep"
+        puts event["postback"]["data"]
         client.reply_message(event['replyToken'], reply_message(event["postback"]["data"]))
       end
     end
   }
-
   "OK"
 end
