@@ -56,7 +56,7 @@ post '/callback' do
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
       puts data.to_s
-      client.reply_messagAe(event['replyToken'], reply_message("type は"+data['title']))
+      client.reply_message(event['replyToken'], reply_message("type は"+data['title']))
 #      case event["source"]["type"]
 #      when "user"
 #        Keep.create(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
