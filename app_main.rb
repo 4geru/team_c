@@ -55,13 +55,14 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
+      client.reply_message(event['replyToken'], reply_message("type は"+event["source"]["type"]))
       case event["source"]["type"]
       when "user"
-        client.reply_message(event['replyToken'], reply_message("user idは"+userId))
+        client.reply_message(event['replyToken'], reply_message("user idは"+event["source"]["userId"]))
       when "group"
-        client.reply_message(event['replyToken'], reply_message("group idは"+groupId))
+        client.reply_message(event['replyToken'], reply_message("group idは"+event["source"]["groupId"]))
       when "room"
-        client.reply_message(event['replyToken'], reply_message("room idは"+roomId))
+        client.reply_message(event['replyToken'], reply_message("room idは"+event["source"]["roomId"]))
       else
         client.reply_message(event['replyToken'], reply_message("type は"+event["source"]["type"]))
       end
