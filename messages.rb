@@ -26,6 +26,19 @@ def reply_carousel_museums(museums)
 }
 end
 
+def reply_carousel_museums(museums)
+	keeps = Keep.limit(5).order(:created_time)
+	keeps.map!{|item| hoge(param_decode(item))}
+{
+  "type": "template",
+  "altText": "this is a carousel template",
+  "template": {
+      "type": "carousel",
+      "columns": keeps
+  }
+}
+end
+
 def hoge(museum)
 	museum["type"] = 'keep'
 	{
@@ -46,8 +59,6 @@ def hoge(museum)
     ]
   }
 end
-
-
 
 def reply_template_museum(museum)
 	{

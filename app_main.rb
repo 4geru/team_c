@@ -42,6 +42,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
+        elsif event.message['text'] =~ /ブックマーク/
+          client.reply_message(event['replyToken'], reply_carousel_bookmarks(reply_museum_datas))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
@@ -57,16 +59,16 @@ post '/callback' do
       data = param_decode(event["postback"]["data"])
       puts data.to_s
       client.reply_message(event['replyToken'], reply_message("type は"+data['title']))
-#      case event["source"]["type"]
-#      when "user"
-#        Keep.create(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
-#      when "group"
-#        Keep.create(:channel=>event["source"]["groupId"], :json=>event["postback"]["data"])
-#      when "room"
-#        Keep.create(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
-#      end
-#      client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
-#    else 
+      case event["source"]["type"]
+      when "user"
+        Keep.update(:channel=>event["source"]["userId"], :json=>event["postback"]["data"])
+      when "group"
+        Keep.update(:channel=>event["source"]["groupId"], :json=>event["postback"]["data"])
+      when "room"
+        Keep.update(:channel=>event["source"]["roomId"], :json=>event["postback"]["data"])
+      end
+      client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
+    else 
     end
   }
   "OK"
