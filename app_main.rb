@@ -40,7 +40,7 @@ post '/callback' do
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /ブックマーク/
-          get_id(event["source"])
+          channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
