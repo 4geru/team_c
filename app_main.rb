@@ -56,7 +56,7 @@ post '/callback' do
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
       source = event["source"].to_s
-      client.reply_message(event['replyToken'], reply_message(source)
+      client.reply_message(event['replyToken'], reply_message(source))
     else 
       puts 'other type'
     end
