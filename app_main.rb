@@ -54,7 +54,7 @@ post '/callback' do
     # Postbackの場合
     when Line::Bot::Event::Postback
       puts 'get postback'
-
+      client.reply_message(event['replyToken'], reply_message('受け取ったよ'))
     else 
       puts 'other type'
     end
