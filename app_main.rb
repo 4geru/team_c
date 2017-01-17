@@ -55,7 +55,7 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       data = param_decode(event["postback"]["data"])
-      client.reply_message(event['replyToken'], reply_message("type は"+event["source"]["type"]))
+#      client.reply_messagAe(event['replyToken'], reply_message("type は"+event["source"]["type"]))
       case event["source"]["type"]
       when "user"
         client.reply_message(event['replyToken'], reply_message("user idは"+event["source"]["userId"]))
