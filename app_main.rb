@@ -7,7 +7,11 @@ require 'json'
 
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
-  Keep.all.to_a.map{|item| item['title'].to_s}
+  ary = []
+  Keep.all.find_each do |event|
+    ary.push(param_decode(event['json'])['title'])
+  end
+  ary.to_s
   #  params(str.to_hash)
 end
 
