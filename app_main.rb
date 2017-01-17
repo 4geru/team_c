@@ -2,8 +2,10 @@ require 'sinatra'
 require 'line/bot'
 require './messages'
 require './library'
+require './models/keeps'
+
 get '/' do
-  rand_genre[:url]
+  'hello world'
 end
 
 def client
