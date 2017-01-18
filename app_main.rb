@@ -36,7 +36,7 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] =~ /あずみん起きて/
           client.reply_message(event['replyToken'], reply_confirm_start)
-        if event.message['text'] =~ /寝かせて/
+        elsif event.message['text'] =~ /寝かせて/
           #client.reply_message(event['replyToken'], reply_message('少しお待ちください'))
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
         elsif event.message['text'] =~ /情報/
@@ -48,9 +48,9 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_message("今日だね。\nこんなのはどうかな？"))
         elsif event.message['text'] == '明日行きたい'
           client.reply_message(event['replyToken'], reply_message("今日だね。\nこんなのはどうかな？"))
-        elsif event.message['tilte'] = '週末行きたい'
+        elsif event.message['text'] = '週末行きたい'
           client.reply_message(event['replyToken'], reply_message("週末だね。\nこんなのはどうかな？"))
-        elsif event.message['title'] == '決まってない'
+        elsif event.message['text'] == '決まってない'
           client.reply_message(event['replyToken'], reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
