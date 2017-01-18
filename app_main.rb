@@ -41,13 +41,13 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
-        elsif event.message['text'] =~ /ブックマーク/
+        elsif event.message['text'] =~ /ブックマーク/ and not event.message['text'] =~ /しました/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] == '今日行きたい'
           client.reply_message(event['replyToken'], reply_message("今日だね。\nこんなのはどうかな？"))
         elsif event.message['text'] == '明日行きたい'
-          client.reply_message(event['replyToken'], reply_message("今日だね。\nこんなのはどうかな？"))
+          client.reply_message(event['replyToken'], reply_message("明日だね。\nこんなのはどうかな？"))
         elsif event.message['text'] = '週末行きたい'
           client.reply_message(event['replyToken'], reply_message("週末だね。\nこんなのはどうかな？"))
         elsif event.message['text'] == '決まってない'
@@ -79,10 +79,9 @@ post '/callback' do
       else 
         data = param_decode(event["postback"]["data"])
         puts data.to_s
-        client.reply_message(event['replyToken'], reply_message("type は"+data['title']))
         channel_id = get_id(event["source"])
         Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
-        client.reply_message(event['replyToken'], reply_message(data['title'] + 'をブックマークしました!'))
+        client.reply_message(event['replyToken'], 'あずみんは ' + reply_message(data['title'] + ' をブックマークしました!'))
       end
     else 
     end
