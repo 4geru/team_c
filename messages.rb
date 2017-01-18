@@ -55,6 +55,7 @@ def hoge(museum)
       {
         "type": "postback",
 		    "label": "keep",
+		    "text": museum["title"] + ' をブックマークしました',
 	  	  "data": param_encode(museum)
       }
     ]
