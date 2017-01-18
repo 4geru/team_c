@@ -95,7 +95,9 @@ end
 
 def reply_carousel_bookmarks(channel='')
 	keeps = Keep.where(channel: channel).order("updated_at desc").limit(5).map {|event|
-    hoge(param_decode(event['json']))
+		data = param_decode(event['json'])
+		data['area'] ||= "" # areaがない場合
+    hoge(data)
   }
 	keeps
 	{
