@@ -43,7 +43,7 @@ post '/callback' do
         elsif event.message['text'] =~ /ブックマーク/ and not event.message['text'] =~ /しました/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
-        elsif event["postback"]["data"] =~ /あずみん/ and (event["postback"]["data"] =~ /他/ or event["postback"]["data"] =~ /ほか/ or event["postback"]["data"] =~ /違う/ or event["postback"]["data"] =~ /ちがう/)
+        elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
