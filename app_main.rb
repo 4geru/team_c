@@ -44,7 +44,7 @@ post '/callback' do
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
-          client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
+          client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(reply_museum_datas)])
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
