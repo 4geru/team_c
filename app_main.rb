@@ -48,7 +48,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_message("今日だね。\nこんなのはどうかな？"))
         elsif event.message['text'] == '明日行きたい'
           client.reply_message(event['replyToken'], reply_message("明日だね。\nこんなのはどうかな？"))
-        elsif event.message['text'] = '週末行きたい'
+        elsif event.message['text'] == '週末行きたい'
           client.reply_message(event['replyToken'], reply_message("週末だね。\nこんなのはどうかな？"))
         elsif event.message['text'] == '決まってない'
           client.reply_message(event['replyToken'], reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"))
