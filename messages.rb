@@ -95,11 +95,9 @@ end
 
 def reply_carousel_bookmarks(channel='')
 	keeps = Keep.where(channel: channel).order("updated_at desc").limit(5).map {|event|
-		data = param_decode(event['json'])
-		data['area'] ||= "" # areaがない場合
-    hoge(data)
+		puts param_decode(event['json'])
+    hoge(param_decode(event['json']))
   }
-	keeps
 	{
   "type": "template",
   "altText": "this is a carousel template",
