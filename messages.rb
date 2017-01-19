@@ -6,34 +6,34 @@ require './library'
 
 # "デバッグ用"
 def reply_message(message='')
-	message = {
-    type: 'text',
-    text: message
-  }
+  message = {
+		type: 'text',
+		text: message
+	}
 end
 
 # "あずみん起きて"
 def reply_confirm_start
 	{
-	  "type": "template",
-	  "altText": "this is a confirm template",
-	  "template": {
-	      "type": "confirm",
-	      "text": "おはよう\nイベント行きたいの？",
-	      "actions": [
-	          {
-	            "type": "postback",
-	            "label": "行きたい！",
-	            "text": "行きたい！",
-							"data": "行きたい"
-	          },
-	          {
-	            "type": "postback",
-	            "label": "呼んだだけ",
-	            "text": "呼んだだけ",
-							"data": "呼んだだけ"
-	          }
-	      ]
+		"type": "template",
+		"altText": "this is a confirm template",
+		"template": {
+			"type": "confirm",
+			"text": "おはよう\nイベント行きたいの？",
+			"actions": [
+				{
+					"type": "postback",
+					"label": "行きたい！",
+					"text": "行きたい！",
+					"data": "行きたい"
+				},
+				{
+					"type": "postback",
+					"label": "呼んだだけ",
+					"text": "呼んだだけ",
+					"data": "呼んだだけ"
+	      }
+	    ]
 	  }
 	}
 end
