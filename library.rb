@@ -61,3 +61,8 @@ def get_id(event)
   end
 end
 
+def destroy_bookmarks(channel_id)
+  keeps = Keep.where(channel: channel).order("updated_at desc").map {|event|
+    event.destroy
+  }
+end

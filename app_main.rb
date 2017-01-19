@@ -57,11 +57,13 @@ post '/callback' do
     # Postbackの場合
     when Line::Bot::Event::Postback
       puts 'get postback'
+      channel_id = get_id(event["source"])
       if event["postback"]["data"] =~ /行きたい/
         client.reply_message(event['replyToken'], reply_botton_schedule)
       elsif event["postback"]['data'] =~ /呼んだだけ/
         client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
       elsif event["postback"]["data"] =~ /今日だね/
+        destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /明日だね/
         client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
@@ -73,7 +75,6 @@ post '/callback' do
         data = param_decode(event["postback"]["data"])
       case data["type"]
         when "keep"
-          channel_id = get_id(event["source"])
           Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
           client.reply_message(event['replyToken'], reply_message(data['title'] + ' をブックマークしました!'))
         when "gps"
