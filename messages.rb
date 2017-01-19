@@ -173,13 +173,13 @@ def reply_museum_datas(url = rand_genre[:url])
 	  	doc.elements.each('Events/Event') do |event|
 #	  	doc.elements['Events'].each do |event|
 		  	res = {}
-		  	res["title"]    = event.elements['Name'].text
-		  	res["url"]      = event.attribute('href').to_s
-		  	res["area"]     = event.elements['Venue/Area'].text
-		  	res["body"]     = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
-		 		res["address"]  = event.elements['Events/Event/Venue/Address'].text
-		 		res["latitude"] = event.elements['Events/Event/Venue/Latitude'].text
-		 		res["longitude"] = event.elements['Events/Event/Venue/Longitude'].text
+		  	res["title"]   	 = event.elements['Name'].text
+		  	res["url"]     	 = event.attribute('href').to_s
+		  	res["area"]    	 = event.elements['Venue/Area'].text
+		  	res["body"]    	 = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
+		 		res["address"] 	 = event.elements['Venue/Address'].text
+		 		res["latitude"]	 = event.elements['Latitude'].text
+		 		res["longitude"] = event.elements['Longitude'].text
 		  	array.push(res)
 		 	end
 		  puts array.count

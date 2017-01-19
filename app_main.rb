@@ -7,7 +7,7 @@ require 'json'
 
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
-  reply_carousel_bookmarks.to_s
+  reply_carousel_museums(reply_museum_datas).to_s
   #  params(str.to_hash)
 end
 
@@ -45,10 +45,6 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(reply_museum_datas)])
-        elsif event.message['text'] =~ /どこ？/
-          client.reply_message(event['replyToken'], reply_confirm_gps)
-        elsif event.message['text'] =~ /yes/
-          client.reply_message(event['replyToken'], reply_message(event.message['latitude'].to_s))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
