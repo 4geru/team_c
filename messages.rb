@@ -6,34 +6,34 @@ require './library'
 
 # "デバッグ用"
 def reply_message(message='')
-	message = {
-    type: 'text',
-    text: message
-  }
+  message = {
+		type: 'text',
+		text: message
+	}
 end
 
 # "あずみん起きて"
 def reply_confirm_start
 	{
-	  "type": "template",
-	  "altText": "this is a confirm template",
-	  "template": {
-	      "type": "confirm",
-	      "text": "おはよう\nイベント行きたいの？",
-	      "actions": [
-	          {
-	            "type": "postback",
-	            "label": "行きたい！",
-	            "text": "行きたい！",
-							"data": "行きたい"
-	          },
-	          {
-	            "type": "postback",
-	            "label": "呼んだだけ",
-	            "text": "呼んだだけ",
-							"data": "呼んだだけ"
-	          }
-	      ]
+		"type": "template",
+		"altText": "this is a confirm template",
+		"template": {
+			"type": "confirm",
+			"text": "おはよう\nイベント行きたいの？",
+			"actions": [
+				{
+					"type": "postback",
+					"label": "行きたい！",
+					"text": "行きたい！",
+					"data": "行きたい"
+				},
+				{
+					"type": "postback",
+					"label": "呼んだだけ",
+					"text": "呼んだだけ",
+					"data": "呼んだだけ"
+	      }
+	    ]
 	  }
 	}
 end
@@ -96,14 +96,18 @@ def reply_carousel_bookmarks(channel='')
 	keeps = Keep.where(channel: channel).order("updated_at desc").limit(5).map {|event|
     make_carousel_cloumns(param_decode(event['json']))
   }
-	{
-  "type": "template",
-  "altText": "this is a carousel template",
-  "template": {
-     "type": "carousel",
-     "columns": keeps
-  }
-}
+  if keeps.count == 0
+  	reply_message("まだブックマークされてないよー！")
+  else
+  	{
+		  "type": "template",
+		  "altText": "this is a carousel template",
+		  "template": {
+		     "type": "carousel",
+		     "columns": keeps
+		  }
+		}
+  end 
 end
 
 def make_carousel_cloumns(museum)
