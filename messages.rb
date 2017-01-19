@@ -98,13 +98,17 @@ def reply_carousel_bookmarks(channel='')
 		puts param_decode(event['json'])
     reply_carousel_columns(param_decode(event['json']))
   }
-	{
-  "type": "template",
-  "altText": "this is a carousel template",
-  "template": {
-     "type": "carousel",
-     "columns": keeps
-  }
+  if keeps.count == 0
+  	reply_message("まだブックマークされてないよー！")
+  else
+  	{
+		  "type": "template",
+		  "altText": "this is a carousel template",
+		  "template": {
+		     "type": "carousel",
+		     "columns": keeps
+	  }
+  end 
 }
 end
 

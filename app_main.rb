@@ -7,8 +7,6 @@ require 'json'
 
 get '/' do
 #  reply_carousel_museums(reply_museum_datas).to_s
-#  reply_carousel_museums(reply_museum_datas).to_s
-  #  params(str.to_hash)
 end
 
 def client
@@ -66,10 +64,13 @@ post '/callback' do
         destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /明日だね/
+        destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /週末だね/
+        destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("週末だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /決まっていない/
+        destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       else 
         data = param_decode(event["postback"]["data"])
