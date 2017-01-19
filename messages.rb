@@ -74,8 +74,8 @@ def reply_botton_schedule
           "data": "決まっていない"
         }
       ]
-	  }
-	}
+    }
+  }
 end
 
 def reply_carousel_museums(museums)
@@ -184,5 +184,5 @@ def reply_gps(title='',address='',latitude='',longitude='')
     "address": address,
     "latitude": latitude,
     "longitude": longitude
-	}
+  }
 end
