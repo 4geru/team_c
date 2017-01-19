@@ -107,9 +107,9 @@ def reply_carousel_bookmarks(channel='')
 		  "template": {
 		     "type": "carousel",
 		     "columns": keeps
-	  }
+		  }
+		}
   end 
-}
 end
 
 def reply_carousel_columns(museum)
