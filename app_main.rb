@@ -36,8 +36,6 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_confirm_start)
         elsif event.message['text'] =~ /寝かせて/
           client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
-        elsif event.message['text'] =~ /情報/
-          client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /ブックマーク/ and not event.message['text'] =~ /しました/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
