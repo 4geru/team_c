@@ -223,13 +223,18 @@ end
 
 def reply_confirm_gps
 	{
-	  "type": "template",
-	  "altText": "this is a confirm template",
-	  "template": {
-	      "type": "confirm",
-	      "text": "Are you sure?",
-	      "actions": [
-	          {
+  "type": "template",
+  "altText": "this is a buttons template",
+  "template": {
+      "type": "buttons",
+      "title": "Menu",
+      "text": "Please select",
+      "actions": [
+          {
+            "type": "postback",
+            "label": "Buy",
+            "data": "action=buy&itemid=123"
+          },{
             "type": "location",
             "title": "my location",
             "address": "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
@@ -237,12 +242,17 @@ def reply_confirm_gps
             "longitude": 139.70372892916203,
             "text": "yes"
           },
-	          {
-	            "type": "message",
-	            "label": "No",
-	            "text": "no"
-	          }
-	      ]
-	  }
-	}
+          {
+            "type": "postback",
+            "label": "Add to cart",
+            "data": "action=add&itemid=123"
+          },
+          {
+            "type": "uri",
+            "label": "View detail",
+            "uri": "http://example.com/page/123"
+          }
+      ]
+  }
+}
 end
