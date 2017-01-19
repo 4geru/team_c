@@ -47,6 +47,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(reply_museum_datas)])
         elsif event.message['text'] =~ /どこ？/
           client.reply_message(event['replyToken'], reply_confirm_gps)
+        elsif event.message['text'] =~ /yes/
+          client.reply_message(event['replyToken'], reply_message(event.message['latitude'].to_s))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
