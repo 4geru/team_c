@@ -109,7 +109,10 @@ def reply_carousel_bookmarks(channel='')
 end
 
 def hoge(museum)
-	museum["type"] = 'keep'
+	keep = museum.dup
+	keep["type"] = 'keep'
+	gps = museum.dup
+	gps["type"] = 'gps'
 	{
 		"thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
     "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
@@ -124,7 +127,13 @@ def hoge(museum)
         "type": "postback",
 		    "label": "keep",
 		    "text": museum["title"] + ' をブックマークしました',
-	  	  "data": param_encode(museum)
+	  	  "data": param_encode(keep)
+      },
+      {
+        "type": "postback",
+		    "label": "keep",
+		    "text": museum["title"] + ' をブックマークしました',
+	  	  "data": param_encode(gps)
       }
     ]
   }
@@ -164,10 +173,13 @@ def reply_museum_datas(url = rand_genre[:url])
 	  	doc.elements.each('Events/Event') do |event|
 #	  	doc.elements['Events'].each do |event|
 		  	res = {}
-		  	res["title"] = event.elements['Name'].text
-		  	res["url"]   = event.attribute('href').to_s
-		  	res["area"]  = event.elements['Venue/Area'].text
-		  	res["body"]  = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
+		  	res["title"]    = event.elements['Name'].text
+		  	res["url"]      = event.attribute('href').to_s
+		  	res["area"]     = event.elements['Venue/Area'].text
+		  	res["body"]     = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
+		 		res["address"]  = event.elements['Events/Event/Venue/Address'].text
+		 		res["latitude"] = event.elements['Events/Event/Venue/Latitude'].text
+		 		res["longitude"] = event.elements['Events/Event/Venue/Longitude'].text
 		  	array.push(res)
 		 	end
 		  puts array.count
@@ -221,12 +233,12 @@ def reply_museum_data
 	end
 end
 
-def reply_confirm_gps
+def reply_gps(title='',address='',latitude='',longitude='')
 	{
     "type": "location",
-    "title": "my location",
-    "address": "〒107-0061 東京都港区北青山2-12-20 #101",
-    "latitude": 35.667189,
-    "longitude": 139.719364
+    "title": title,
+    "address": address,
+    "latitude": latitude,
+    "longitude": longitude
 }
 end
