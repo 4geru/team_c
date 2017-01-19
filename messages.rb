@@ -222,12 +222,29 @@ def reply_museum_data
 end
 
 def reply_confirm_gps
-	 {
-    "id": "325708",
-    "type": "location",
-    "title": "my location",
-    "address": "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
-    "latitude": 35.65910807942215,
-    "longitude": 139.70372892916203
-  }
+	{
+	  "type": "template",
+	  "altText": "this is a confirm template",
+	  "template": {
+	      "type": "confirm",
+	      "text": "Are you sure?",
+	      "actions": [
+	          {
+	            "id": "325708",
+					    "type": "location",
+					    "title": "my location",
+					    "address": "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
+					    "latitude": 35.65910807942215,
+					    "longitude": 139.70372892916203,
+	            "label": "Yes",
+	            "text": "yes"
+	          },
+	          {
+	            "type": "message",
+	            "label": "No",
+	            "text": "no"
+	          }
+	      ]
+	  }
+	}
 end
