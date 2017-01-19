@@ -66,3 +66,40 @@ def destroy_bookmarks(channel_id)
     event.destroy
   }
 end
+
+def museum_datas(url = rand_genre[:url])
+  uri = URI.parse(url)
+  begin
+    response = Net::HTTP.start(uri.host) do |http|
+    http.get(uri.request_uri)
+  end
+  puts 'get response'
+  case response
+  when Net::HTTPSuccess
+    doc = REXML::Document.new(response.body)
+    array = []
+    doc.elements.each('Events/Event') do |event|
+      res = {}
+      res["title"]     = event.elements['Name'].text
+      res["url"]       = event.attribute('href').to_s
+      res["area"]      = event.elements['Venue/Area'].text
+      res["body"]      = event.elements['Description'].text.gsub(/\n/, '').slice(0,59)
+      res["address"]   = event.elements['Venue/Address'].text
+      res["latitude"]  = event.elements['Latitude'].text
+      res["longitude"] = event.elements['Longitude'].text
+      array.push(res)
+    end
+    return array
+  when Net::HTTPRedirection
+    puts "Redirection: code=#{response.code} message=#{response.message}"
+  else
+    puts "HTTP ERROR: code=#{response.code} message=#{response.message}"
+  end
+  rescue IOError => e
+    puts e.message
+  rescue JSON::ParserError => e
+    puts e.message
+  rescue => e
+    puts e.message
+  end
+end
