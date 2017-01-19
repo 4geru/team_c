@@ -71,7 +71,7 @@ post '/callback' do
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       else 
         data = param_decode(event["postback"]["data"])
-        case data["type"]
+      case data["type"]
         when "keep"
           channel_id = get_id(event["source"])
           Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])

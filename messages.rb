@@ -125,13 +125,13 @@ def hoge(museum)
       },
       {
         "type": "postback",
-		    "label": "keep",
+		    "label": "ブックマークする",
 		    "text": museum["title"] + ' をブックマークしました',
 	  	  "data": param_encode(keep)
       },
       {
         "type": "postback",
-		    "label": "gps",
+		    "label": "場所を見る",
 	  	  "data": param_encode(gps)
       }
     ]
