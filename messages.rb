@@ -223,36 +223,10 @@ end
 
 def reply_confirm_gps
 	{
-  "type": "template",
-  "altText": "this is a buttons template",
-  "template": {
-      "type": "buttons",
-      "title": "Menu",
-      "text": "Please select",
-      "actions": [
-          {
-            "type": "postback",
-            "label": "Buy",
-            "data": "action=buy&itemid=123"
-          },{
-            "type": "location",
-            "title": "my location",
-            "address": "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
-            "latitude": 35.65910807942215,
-            "longitude": 139.70372892916203,
-            "text": "yes"
-          },
-          {
-            "type": "postback",
-            "label": "Add to cart",
-            "data": "action=add&itemid=123"
-          },
-          {
-            "type": "uri",
-            "label": "View detail",
-            "uri": "http://example.com/page/123"
-          }
-      ]
-  }
+    "type": "location",
+    "title": "my location",
+    "address": "〒107-0061 東京都港区北青山2-12-20 #101",
+    "latitude": 35.667189,
+    "longitude": 139.719364
 }
 end
