@@ -6,6 +6,7 @@ require './models/keeps'
 require 'json'
 
 get '/' do
+  reply_carousel_asoview(rand_asoview_genre).to_s
 #  reply_carousel_museums(museum_datas).to_s
 end
 
@@ -70,6 +71,8 @@ post '/callback' do
       elsif event["postback"]["data"] =~ /決まっていない/
         destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+      elsif event["postback"]["data"] =~ /あそ/ or event["postback"]["data"] =~ /遊/
+        client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
       else 
         data = param_decode(event["postback"]["data"])
       case data["type"]

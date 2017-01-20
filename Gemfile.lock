@@ -16,7 +16,10 @@ GEM
     concurrent-ruby (1.0.4)
     i18n (0.7.0)
     line-bot-api (1.0.0)
+    mini_portile2 (2.1.0)
     minitest (5.10.1)
+    nokogiri (1.7.0.1)
+      mini_portile2 (~> 2.1.0)
     pg (0.19.0)
     rack (1.6.5)
     rack-protection (1.5.3)
@@ -42,6 +45,7 @@ DEPENDENCIES
   activerecord
   activesupport
   line-bot-api
+  nokogiri
   pg
   rake
   sinatra

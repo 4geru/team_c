@@ -14,5 +14,8 @@ gem 'sinatra-activerecord'
 # rake
 gem 'rake'
 
+# scrayping
+gem 'nokogiri'
+
 gem 'sqlite3', groups: %w(test development), require: false
 gem 'pg', groups: %w(production), require: false

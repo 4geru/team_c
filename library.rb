@@ -1,4 +1,7 @@
-def rand_genre
+require 'open-uri'
+require 'nokogiri'
+
+def rand_museum_genre
   genres = [
     {:name => "2D/イラスト", :url => "http://www.tokyoartbeat.com/list/event_type_print_illustration.ja.xml"},
     {:name => "2D/デッサン", :url => "http://www.tokyoartbeat.com/list/event_type_print_drawing.ja.xml"},
@@ -26,6 +29,28 @@ def rand_genre
     {:name => "一般公募", :url => "http://www.tokyoartbeat.com/list/event_type_misc_performance.ja.xml"},
   ]
   genres[rand(genres.count-1)]
+end
+
+def asoview_genre(date="20170121")
+  genre = [
+    {:name => "空"},
+    {:name => "川・滝"},
+    {:name => "海"},
+    {:name => "湖・池"},
+    {:name => "山・自然"},
+    {:name => "乗り物"},
+    {:name => "観光・レジャー"},
+    {:name => "スポーツ・フィットネス"},
+    {:name => "雪"},
+    {:name => "日本文化"},
+    {:name => "サブカルチャー"},
+    {:name => "テクノロジー"},
+    {:name => "スポーツ・フィットネス"},
+    {:name => "日本文化"},
+    {:name => "料理・お酒"},
+    {:name => "ものづくり・クラフト"},
+    {:name => "花・ガーデニング"},
+  ]
 end
 
 def param_encode(museum)
@@ -67,7 +92,7 @@ def destroy_bookmarks(channel_id)
   }
 end
 
-def museum_datas(url = rand_genre[:url])
+def museum_datas(url = rand_museum_genre[:url])
   uri = URI.parse(url)
   begin
     response = Net::HTTP.start(uri.host) do |http|
@@ -102,4 +127,60 @@ def museum_datas(url = rand_genre[:url])
   rescue => e
     puts e.message
   end
+end
+
+def rand_asoview_genre
+  genres = asoview_genre
+    
+  searchUrls = `curl "http://www.asoview.com/search/?ymd=2017-01-21&rg=rgn04&pr=&ct=&np=&q=&bd=&targetAge=&timeRequired=" | grep searchUrl`
+  facets = `curl "http://www.asoview.com/search/?ymd=2017-01-21&rg=rgn04&pr=&ct=&np=&q=&bd=&targetAge=&timeRequired=" | grep facet`
+
+  facets = facets.split(',')
+  searchUrls = searchUrls.split(',')
+  puts facets.count-8
+  puts genres.count
+  for i in 8...facets.count-1
+    count = facets[i].split("\'")[1].to_i
+    if count > 4
+      genres[i-8][:count] = count
+      genres[i-8][:url]   = searchUrls[i].split("\'")[1]
+    end 
+  end
+  genres[rand(genres.count-1)]
+end
+
+def get_asoview_data(datas,data)
+  hash = {}
+  max = data[:count].to_i
+
+  (0..max/20).map{|i| hash[i] = [] }
+  datas.map{|i| hash[i/20].push(i) }
+
+  response = []
+  for i in hash.keys
+    if hash[i].count != 0
+      url = "http://www.asoview.com/" + data[:url] + "&page=#{i+1}"
+      puts url
+      charset = nil
+      html = open(url) do |f|
+        charset = f.charset # 文字種別を取得
+        f.read # htmlを読み込んで変数htmlに渡す
+      end
+
+      # htmlをパース(解析)してオブジェクトを生成
+      doc = Nokogiri::HTML.parse(html, nil, charset)
+
+      # タイトルを表示
+      for j in hash[i]
+        res = {}
+        article = doc.xpath("//li[@class='plan-summary-list__item js-prAd_impression']")[j-i*20]
+        res['title'] = article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20].inner_text
+        res['url'] = "http://www.asoview.com/" + article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20][:href]
+        res['body'] =  article.xpath("//p[@class='plan-summary-list__plan-description']").inner_text.slice(0,40)
+        res['address'] = article.xpath("//p[@class='plan-summary-list__access-address']")[j-i*20].inner_text
+        response.push(res)
+      end
+    end
+  end
+  response
 end

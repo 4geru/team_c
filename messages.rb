@@ -80,7 +80,7 @@ end
 
 def reply_carousel_museums(museums)
   randoms = (0...museums.count).to_a.shuffle![0...5]
-  randoms.map!{|item| make_carousel_cloumns(museums[item])}
+  randoms.map!{|item| make_carousel_museum_cloumns(museums[item])}
   {
     "type": "template",
     "altText": "this is a carousel template",
@@ -94,7 +94,7 @@ end
 def reply_carousel_bookmarks(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
-      make_carousel_cloumns(param_decode(event['json']))
+      make_carousel_museum_cloumns(param_decode(event['json']))
   }
   if keeps.count == 0
   	reply_message("まだブックマークされてないよー！")
@@ -110,9 +110,10 @@ def reply_carousel_bookmarks(channel='')
   end 
 end
 
-def make_carousel_cloumns(museum)
+def make_carousel_museum_cloumns(museum)
   keep = museum.dup
   keep["type"] = 'keep'
+  keep["source"] = 'museum'
   gps = museum.dup
   gps["type"] = 'gps'
   {
@@ -140,6 +141,51 @@ def make_carousel_cloumns(museum)
   }
 end
 
+
+def reply_carousel_asoview(asoview_data)
+  randoms = (0...asoview_data[:count]).to_a.shuffle![0...5]
+  datas = get_asoview_data(randoms.sort, asoview_data)
+  datas.map!{|data| make_carousel_asoview_cloumns(data) }
+  {
+    "type": "template",
+    "altText": "this is a carousel template",
+    "template": {
+       "type": "carousel",
+       "columns": datas
+    }
+  }
+end
+
+def make_carousel_asoview_cloumns(data)
+  keep = data.dup
+  keep["type"] = 'keep'
+  keep["source"] = 'asoview'
+  gps = data.dup
+  gps["type"] = 'gps'
+  {
+    "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
+    "title": data["title"].slice(0,40.size-1),
+    "text": data["body"],
+    "actions": [
+      {
+        "type": "uri",
+        "label": "詳しく見る",
+        "uri": data["url"]
+      },
+      {
+        "type": "postback",
+        "label": "場所を見る",
+        "data": param_encode(gps)
+      },
+      {
+        "type": "postback",
+        "label": "ブックマークする",
+        "text": data["title"] + ' をブックマークしました',
+        "data": param_encode(keep)
+      }
+    ]
+  }
+end
 def reply_gps(title='',address='',latitude='',longitude='')
   {
     "type": "location",
