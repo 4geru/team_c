@@ -113,7 +113,7 @@ end
 def make_carousel_museum_cloumns(museum)
   keep = museum.dup
   keep["type"] = 'keep'
-  keep["source"] = 'museum'
+  keep["source_page"] = 'museum'
   gps = museum.dup
   gps["type"] = 'gps'
   {
@@ -159,7 +159,7 @@ end
 def make_carousel_asoview_cloumns(data)
   keep = data.dup
   keep["type"] = 'keep'
-  keep["source"] = 'asoview'
+  keep["source_page"] = 'asoview'
   gps = data.dup
   gps["type"] = 'gps'
   {
