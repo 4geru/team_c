@@ -169,7 +169,7 @@ def make_carousel_asoview_cloumns(data)
   gps["type"] = 'gps'
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
-    "title": data["title"].slice(0,40.size-1),
+    "title": data["title"].slice(0,40),
     "text": data["body"],
     "actions": [
       {
