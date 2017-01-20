@@ -6,7 +6,8 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  keeps = Keep.order("updated_at desc").to_s
+  puts Keep.all
+  Keep.all.map{|i| i.to_s}
 #  reply_carousel_museums(reply_museum_datas).to_s
 end
 
