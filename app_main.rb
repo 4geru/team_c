@@ -42,6 +42,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
+        elsif event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/
+          client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
@@ -71,8 +73,6 @@ post '/callback' do
       elsif event["postback"]["data"] =~ /決まっていない/
         destroy_bookmarks(channel_id)
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      elsif event["postback"]["data"] =~ /あそ/ or event["postback"]["data"] =~ /遊/
-        client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
       else 
         data = param_decode(event["postback"]["data"])
       case data["type"]
