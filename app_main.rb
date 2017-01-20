@@ -6,7 +6,7 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  reply_carousel_museums(museum_datas).to_s
+  keeps = Keep.order("updated_at desc").to_s
 #  reply_carousel_museums(reply_museum_datas).to_s
 end
 
