@@ -86,12 +86,13 @@ post '/callback' do
             client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
           end
         when 'asoview'
+          puts data
           case data["type"]
           when "keep"
             Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
             client.reply_message(event['replyToken'], reply_message(data['title'] + ' をブックマークしました!'))
           when "gps"
-            client.reply_message(event['replyToken'], reply_gps(data['title'],data['address']))
+            client.reply_message(event['replyToken'], reply_message(data['title']+"の場所は"+data['address']+"だよー！"))
           end
         end
       end
