@@ -6,12 +6,11 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  reply_carousel_asoview(rand_asoview_genre).to_s
-#  reply_carousel_museums(museum_datas).to_s
+#  reply_carousel_museums(reply_museum_datas).to_s
 end
 
 def client
-	@client ||= Line::Bot::Client.new { |config|
+  @client ||= Line::Bot::Client.new { |config|
     config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
     config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
   }
@@ -36,14 +35,14 @@ post '/callback' do
         if event.message['text'] =~ /あずみん起きて/
           client.reply_message(event['replyToken'], reply_confirm_start)
         elsif event.message['text'] =~ /寝かせて/
-          client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
+          client.reply_message(event['replyToken'], reply_carousel_museums(reply_museum_datas))
+        elsif event.message['text'] =~ /情報/
+          client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /ブックマーク/ and not event.message['text'] =~ /しました/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
-          client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
-        elsif event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/
-          client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
+          client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(reply_museum_datas)])
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
@@ -63,16 +62,16 @@ post '/callback' do
         client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
       elsif event["postback"]["data"] =~ /今日だね/
         destroy_bookmarks(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+        client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /明日だね/
         destroy_bookmarks(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+        client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /週末だね/
         destroy_bookmarks(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("週末だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+        client.reply_message(event['replyToken'], [reply_message("週末だね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       elsif event["postback"]["data"] =~ /決まっていない/
         destroy_bookmarks(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+        client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(reply_museum_datas)])
       else 
         data = param_decode(event["postback"]["data"])
       case data["type"]
@@ -80,7 +79,7 @@ post '/callback' do
           Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
           client.reply_message(event['replyToken'], reply_message(data['title'] + ' をブックマークしました!'))
         when "gps"
-          client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
+          client.reply_message(event['replyToken'], reply_gps(data['title'],data['address']))
         end
       end
     else 
