@@ -111,9 +111,9 @@ def reply_carousel_bookmarks(channel='')
 end
 
 def make_carousel_museum_cloumns(museum)
+  museum["source_page"] = 'museum'
   keep = museum.dup
   keep["type"] = 'keep'
-  keep["source_page"] = 'museum'
   gps = museum.dup
   gps["type"] = 'gps'
   {
@@ -157,9 +157,9 @@ def reply_carousel_asoview(asoview_data)
 end
 
 def make_carousel_asoview_cloumns(data)
+  data["source_page"] = 'asoview'
   keep = data.dup
   keep["type"] = 'keep'
-  keep["source_page"] = 'asoview'
   gps = data.dup
   gps["type"] = 'gps'
   {
