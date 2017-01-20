@@ -94,8 +94,12 @@ end
 def reply_carousel_bookmarks(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
-    	puts param_decode(event['json'])
-      make_carousel_museum_cloumns(param_decode(event['json']))
+    	data =  param_decode(event['json'])
+    	if data['source_page'] == 'museum'
+	      make_carousel_museum_cloumns(data)
+  		else
+  			make_carousel_asoview_cloumns(data)
+  		end
   }
   if keeps.count == 0
   	reply_message("まだブックマークされてないよー！")
