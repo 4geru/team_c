@@ -31,7 +31,7 @@ def get_id(event)
   end
 end
 
-def destroy_bookmarks(channel_id)
+def destroy_memos(channel_id)
   keeps = Keep.where(channel: channel_id).order("updated_at desc").map {|event|
     event.destroy
   }

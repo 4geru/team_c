@@ -42,7 +42,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/
           channel = get_id(event["source"])
-          client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
+          client.reply_message(event['replyToken'], reply_carousel_memos(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
@@ -65,16 +65,16 @@ post '/callback' do
       elsif event["postback"]['data'] =~ /呼んだだけ/
         client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
       elsif event["postback"]["data"] =~ /今日だね/
-        destroy_bookmarks(channel_id)
+        destroy_memos(channel_id)
         client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
       elsif event["postback"]["data"] =~ /明日だね/
-        destroy_bookmarks(channel_id)
+        destroy_memos(channel_id)
         client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
       elsif event["postback"]["data"] =~ /週末だね/
-        destroy_bookmarks(channel_id)
+        destroy_memos(channel_id)
         client.reply_message(event['replyToken'], [reply_message("週末だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
       elsif event["postback"]["data"] =~ /決まっていない/
-        destroy_bookmarks(channel_id)
+        destroy_memos(channel_id)
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
       else 
         data = param_decode(event["postback"]["data"])

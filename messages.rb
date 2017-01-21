@@ -79,7 +79,7 @@ def reply_botton_schedule
   }
 end
 
-def reply_carousel_bookmarks(channel='')
+def reply_carousel_memos(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
     	data =  param_decode(event['json'])
