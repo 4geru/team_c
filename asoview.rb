@@ -105,6 +105,7 @@ end
 
 def make_carousel_asoview_cloumns(data,template_type=0)
   actions = []
+  data["source_page"] = 'asoview'
   # 詳細ボタンと, 住所ボタンの追加
   actions.push(make_action_url(data["url"]))
   data["type"] = 'gps'
