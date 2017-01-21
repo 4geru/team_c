@@ -55,8 +55,6 @@ post '/callback' do
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
-        else
-          client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
@@ -68,20 +66,15 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       channel_id = get_id(event["source"])
-      if event["postback"]["data"] =~ /行きたい/
+      case event["postback"]["data"]
+      when "行きたい"
         client.reply_message(event['replyToken'], reply_botton_schedule)
-      elsif event["postback"]['data'] =~ /呼んだだけ/
+      when "呼んだだけ"
         client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
-      elsif event["postback"]["data"] =~ /今日だね/
+      when "今日だね", "明日だね", "週末だね"
         destroy_memos(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("今日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      elsif event["postback"]["data"] =~ /明日だね/
-        destroy_memos(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("明日だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      elsif event["postback"]["data"] =~ /週末だね/
-        destroy_memos(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("週末だね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      elsif event["postback"]["data"] =~ /決まっていない/
+        client.reply_message(event['replyToken'], [reply_message(event["postback"]["data"] + "\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+      when "決まっていない"
         destroy_memos(channel_id)
         client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
       else 
