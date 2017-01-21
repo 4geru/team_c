@@ -83,10 +83,11 @@ def reply_carousel_memos(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
     	data =  param_decode(event['json'])
+      # make_carousel_XX_cloumns(data, template_type)
     	if data['source_page'] == 'museum'
-	      make_carousel_museum_cloumns(data)
+	      make_carousel_museum_cloumns(data,1)
   		else
-  			make_carousel_asoview_cloumns(data)
+  			make_carousel_asoview_cloumns(data,1)
   		end
   }
   if keeps.count == 0

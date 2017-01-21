@@ -81,7 +81,7 @@ def reply_carousel_museums(museums)
   }
 end
 
-def make_carousel_museum_cloumns(museum)
+def make_carousel_museum_cloumns(museum,template_type=0)
   museum["source_page"] = 'museum'
   keep = museum.dup
   keep["type"] = 'keep'
@@ -107,7 +107,13 @@ def make_carousel_museum_cloumns(museum)
         "label": "メモする",
         "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
-      }
+      },
+      {
+        "type": "postback",
+        "label": "メモする",
+        "text": museum["title"] + ' をメモったよ！',
+        "data": param_encode(keep)
+      } if template_type == 1
     ]
   }
 end
