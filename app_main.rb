@@ -7,7 +7,15 @@ require 'json'
 
 get '/' do
 #  return rand_asoview_genre.to_s
-#  reply_carousel_asoview(rand_asoview_genre).to_s
+  reply_carousel_asoview(rand_asoview_genre).to_s
+#  reply_carousel_museums(museum_datas).to_s
+end
+
+get '/asoview' do
+  reply_carousel_asoview(rand_asoview_genre).to_s
+end
+
+get '/museum' do
   reply_carousel_museums(museum_datas).to_s
 end
 

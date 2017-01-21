@@ -77,7 +77,7 @@ def get_asoview_data(datas,data)
         res['title'] = article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20].inner_text
         res['url'] = "http://www.asoview.com/" + article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20][:href]
         res['body'] =  article.xpath("//p[@class='plan-summary-list__plan-description']").inner_text.slice(0,40)
-        res['address'] = ""||article.xpath("//p[@class='plan-summary-list__access-address']")[j-i*20].inner_text
+        res['address'] = article.xpath("//p[@class='plan-summary-list__access-address']")[j-i*20].inner_text || "見つかりませんでした"
         response.push(res)
       end
     end
