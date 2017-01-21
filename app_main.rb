@@ -40,7 +40,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
-        elsif event.message['text'] =~ /をメモったよ！/
+        elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)

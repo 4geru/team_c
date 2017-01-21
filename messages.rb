@@ -138,7 +138,7 @@ def make_carousel_museum_cloumns(museum)
       },
       {
         "type": "postback",
-        "label": "ブックマークする",
+        "label": "メモする",
         "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       }
@@ -184,7 +184,7 @@ def make_carousel_asoview_cloumns(data)
       },
       {
         "type": "postback",
-        "label": "ブックマークする",
+        "label": "メモする",
         "text": data["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       }
