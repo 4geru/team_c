@@ -20,7 +20,7 @@ def reply_confirm_start
     "altText": "this is a confirm template",
     "template": {
       "type": "confirm",
-      "text": "おはよう\nイベント行きたいの？",
+      "text": "おっけー！\nイベント行きたいの？",
       "actions": [
         {
           "type": "postback",
@@ -111,5 +111,39 @@ def reply_gps(title='',address='',latitude='',longitude='')
     "address": address,
     "latitude": latitude,
     "longitude": longitude
+  }
+end
+
+def make_action_url(url)
+  {
+    "type": "uri",
+    "label": "詳しく見る",
+    "uri": url
+  }
+end
+
+def make_action_address(gps)
+  {
+    "type": "postback",
+    "label": "場所を見る",
+    "data": gps
+  }
+end
+
+def make_action_memo(data)
+  {
+    "type": "postback",
+    "label": "メモする",
+    "text": data["title"] + ' をメモったよ！',
+    "data": param_encode(data)
+  }
+end
+
+def make_action_destroy(data)
+  {
+    "type": "postback",
+    "label": "削除",
+    "text": data["title"] + ' 削除したよ！！',
+    "data": param_encode(data)
   }
 end

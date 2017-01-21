@@ -50,7 +50,7 @@ post '/callback' do
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
-          client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
+          client.reply_message(event['replyToken'], [reply_message("検索するから少し待ってね！"),reply_carousel_asoview(rand_asoview_genre)])
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
