@@ -97,11 +97,11 @@ def make_carousel_museum_cloumns(museum,template_type=0)
   actions.push(make_action_url(museum["url"]))
   museum["type"] = 'gps'
   actions.push(make_action_address(param_encode(museum)))
-  museum["type"] = 'place'
-  actions.push(make_action_address(param_encode(museum)))
 
   if template_type == 0
     # メモボタンの追加
+    museum["type"] = 'keep'
+    actions.push(make_action_memo(museum))
     museum["type"] = 'keep'
     actions.push(make_action_memo(museum))
   else
