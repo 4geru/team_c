@@ -106,6 +106,8 @@ def make_carousel_asoview_cloumns(data)
   keep["type"] = 'keep'
   gps = data.dup
   gps["type"] = 'gps'
+  puts keep
+  puts gps
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
     "title": data["title"].slice(0,40),
