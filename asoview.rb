@@ -103,7 +103,7 @@ def reply_carousel_asoview(asoview_data)
   }
 end
 
-def make_carousel_asoview_cloumns(data,template_type=1)
+def make_carousel_asoview_cloumns(data,template_type=0)
   puts data
   data["source_page"] = 'asoview'
   keep = data.dup
