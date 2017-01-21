@@ -1,9 +1,10 @@
-def param_encode(string)
+def param_encode(data)
   string = ""
   f = false
-  for key in string.keys
+  puts string
+  for key in data.keys
     string += '&' if f == true
-    string += key + '=' + string[key]
+    string += key + '=' + data[key]
     f = true
   end
   string

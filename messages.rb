@@ -4,6 +4,7 @@ require 'json'
 require "rexml/document" 
 require './library'
 require './asoview'
+require './museum'
 # "デバッグ用"
 def reply_message(message='')
   message = {

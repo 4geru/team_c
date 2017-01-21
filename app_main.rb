@@ -7,8 +7,8 @@ require 'json'
 
 get '/' do
 #  return rand_asoview_genre.to_s
-  reply_carousel_asoview(rand_asoview_genre).to_s
-#  reply_carousel_museums(reply_museum_datas).to_s
+#  reply_carousel_asoview(rand_asoview_genre).to_s
+  reply_carousel_museums(museum_datas).to_s
 end
 
 def client
