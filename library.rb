@@ -6,7 +6,6 @@ def param_encode(data)
     string += key + '=' + data[key]
     f = true
   end
-  puts "string #{string.to_s}"
   string
 end
 
@@ -31,14 +30,14 @@ def get_id(event)
   end
 end
 
-def destroy_memos(channel_id,json=nil)
-  if json = nil
-    keeps = Keep.where({channel: channel_id}).order("updated_at desc").map {|event|
-      event.destroy
-    }
-  else
-    keeps = Keep.where({channel: channel_id, json: json}).order("updated_at desc").map {|event|
-      event.destroy
-    }
-  end
+def destroy_memos(channel_id)
+  keeps = Keep.where({channel: channel_id}).order("updated_at desc").map {|event|
+    event.destroy
+  }
+end
+
+def destroy_memo(channel_id,json=nil)
+  keeps = Keep.where({channel: channel_id, json: json}).order("updated_at desc").map {|event|
+    event.destroy
+  }
 end
