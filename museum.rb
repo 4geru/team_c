@@ -71,8 +71,12 @@ def museum_datas(url = rand_museum_genre[:url])
 end
 
 # カルーセルを返す
+# museums
+# [{"title"=>"タイトル", "url"=>"詳細URL", "area"=>"渋谷,新宿...", "body"=>"説明"
+#  "address"=>"住所", "latitude"=>"緯度", "longitude"=>"経度"}, ...]
 def reply_carousel_museums(museums)
   # museum からランダムに5つ以下を選択
+  puts museums
   randoms = (0...museums.count).to_a.shuffle![0...5]
   columns = randoms.map{|item|
     # テンプレートの作成
@@ -89,28 +93,33 @@ def reply_carousel_museums(museums)
 end
 
 # カルーセルの一つの
-def make_carousel_museum_cloumns(museum,template_type=0)
-  museum["source_page"] = 'museum'
+# template_type : 1 -> keep, 0 -> search result
+# data 
+# {"title"=>"タイトル", "url"=>"詳細URL", "area"=>"渋谷,新宿...", "body"=>"説明"
+#  "address"=>"住所", "latitude"=>"緯度", "longitude"=>"経度"}
+def make_carousel_museum_cloumns(data,template_type=0)
+  puts data
+  data["source_page"] = 'museum'
 
   actions = []
   # 詳細ボタンと, 住所ボタンの追加
-  actions.push(make_action_url(museum["url"]))
-  museum["type"] = 'gps'
-  actions.push(make_action_address(param_encode(museum)))
+  actions.push(make_action_url(data["url"]))
+  data["type"] = 'gps'
+  actions.push(make_action_address(param_encode(data)))
 
   if template_type == 0
     # メモボタンの追加
-    museum["type"] = 'keep'
-    actions.push(make_action_memo(museum))
+    data["type"] = 'keep'
+    actions.push(make_action_memo(data))
   else
     # 削除ボタンの追加
-    museum["type"] = 'destroy'
-    actions.push(make_action_destroy(museum))
+    data["type"] = 'destroy'
+    actions.push(make_action_destroy(data))
   end
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
-    "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
-    "text": museum["body"],
+    "title": data["title"].slice(0,40-data["area"].size-1) + '/' + data["area"],
+    "text": data["body"],
     "actions": actions
   }
 end

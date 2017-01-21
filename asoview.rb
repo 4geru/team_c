@@ -107,16 +107,16 @@ def make_carousel_asoview_cloumns(data,template_type=0)
   actions = []
   # 詳細ボタンと, 住所ボタンの追加
   actions.push(make_action_url(data["url"]))
-  museum["type"] = 'gps'
+  data["type"] = 'gps'
   actions.push(make_action_address(param_encode(data)))
 
   if template_type == 0
     # メモボタンの追加
-    museum["type"] = 'keep'
+    data["type"] = 'keep'
     actions.push(make_action_memo(data))
   else
     # 削除ボタンの追加
-    museum["type"] = 'destroy'
+    data["type"] = 'destroy'
     actions.push(make_action_destroy(data))
   end
   {
