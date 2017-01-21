@@ -96,7 +96,7 @@ post '/callback' do
             client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
           when "destroy"
             puts "#{channel_id} -> #{event['postback']['data']}"
-            destroy_memos(channel_id,event["postback"]["data"])
+            destroy_memos(channel_id)
           end
         when 'asoview'
           puts data
@@ -108,7 +108,7 @@ post '/callback' do
             client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
           when "destroy"
             puts "#{channel_id} -> #{event['postback']['data']}"
-            destroy_memos(channel_id,event["postback"]["data"])
+            destroy_memos(channel_id)
           end
         end
       end
