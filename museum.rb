@@ -98,17 +98,19 @@ def make_carousel_museum_cloumns(museum,template_type=0)
         "label": "場所を見る",
         "data": param_encode(gps)
       })
-  actions.push({
-        "type": "postback",
-        "label": "メモする",
-        "text": museum["title"] + ' をメモったよ！',
-        "data": param_encode(keep)
-      })
+
   if template_type == 1
     actions.push({
+          "type": "postback",
+          "label": "メモする",
+          "text": museum["title"] + ' をメモったよ！',
+          "data": param_encode(keep)
+        })
+  else
+    actions.push({
         "type": "postback",
-        "label": "メモする",
-        "text": museum["title"] + ' をメモったよ！',
+        "label": "削除",
+        "text": museum["title"] + ' 削除したよ！！',
         "data": param_encode(keep)
       })
   end
