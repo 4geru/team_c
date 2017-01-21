@@ -26,13 +26,13 @@ def reply_confirm_start
           "type": "postback",
           "label": "行きたい！",
           "text": "行きたい！",
-          "data": "行きたい"
+          "data": "type=reply&word=行きたい"
         },
         {
           "type": "postback",
           "label": "呼んだだけ",
           "text": "呼んだだけ",
-          "data": "呼んだだけ"
+          "data": "type=reply&word=呼んだだけ"
         }
       ]
     }
@@ -54,25 +54,25 @@ def reply_botton_schedule
           "type": "postback",
           "label": "今日",
           "text": "今日行きたい",
-          "data": "今日だね"
+          "data": "type=reply&word=今日だね"
         },
         {
           "type": "postback",
           "label": "明日",
           "text": "明日行きたい",
-          "data": "明日だね"
+          "data": "type=reply&word=明日だね"
         },
         {
           "type": "postback",
           "label": "週末",
           "text": "週末行きたい",
-          "data": "週末だね"
+          "data": "type=reply&word=週末だね"
         },
         {
           "type": "postback",
           "label": "決まってない",
           "text": "決まってない",
-          "data": "決まっていない"
+          "data": "type=reply&word=決まっていない"
         }
       ]
     }

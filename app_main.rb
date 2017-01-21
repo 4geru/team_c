@@ -62,19 +62,21 @@ post '/callback' do
     when Line::Bot::Event::Postback
       puts 'get postback'
       channel_id = get_id(event["source"])
-      case event["postback"]["data"]
-      when "行きたい"
-        client.reply_message(event['replyToken'], reply_botton_schedule)
-      when "呼んだだけ"
-        client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
-      when "今日だね", "明日だね", "週末だね"
-        destroy_memos(channel_id)
-        client.reply_message(event['replyToken'], [reply_message(event["postback"]["data"] + "\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      when "決まっていない"
-        destroy_memos(channel_id)
-        client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      else 
-        data = param_decode(event["postback"]["data"])
+      data = param_decode(event["postback"]["data"])
+      case data["type"]
+      when "reply"
+        case data["word"]
+        when "行きたい"
+          client.reply_message(event['replyToken'], reply_botton_schedule)
+        when "呼んだだけ"
+          client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
+        when "今日だね", "明日だね", "週末だね"
+          destroy_memos(channel_id)
+          client.reply_message(event['replyToken'], [reply_message(data["word"] + "\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+        when "決まっていない"
+          destroy_memos(channel_id)
+          client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+      end
         case data["source_page"]
         when 'museum'
           case data["type"]
