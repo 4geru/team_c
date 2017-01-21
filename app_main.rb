@@ -66,7 +66,7 @@ post '/callback' do
       case data["type"]
       when "reply"
         case data["word"]
-        when "行きたい"
+        when "あずみん行きたい"
           client.reply_message(event['replyToken'], reply_botton_schedule)
         when "呼んだだけ"
           client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
