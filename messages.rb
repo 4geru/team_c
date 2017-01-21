@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 require "rexml/document" 
 require './library'
-
+require './asoview'
 # "デバッグ用"
 def reply_message(message='')
   message = {
@@ -78,19 +78,6 @@ def reply_botton_schedule
   }
 end
 
-def reply_carousel_museums(museums)
-  randoms = (0...museums.count).to_a.shuffle![0...5]
-  randoms.map!{|item| make_carousel_museum_cloumns(museums[item])}
-  {
-    "type": "template",
-    "altText": "this is a carousel template",
-    "template": {
-       "type": "carousel",
-       "columns": randoms
-    }
-  }
-end
-
 def reply_carousel_bookmarks(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
@@ -115,82 +102,6 @@ def reply_carousel_bookmarks(channel='')
   end 
 end
 
-def make_carousel_museum_cloumns(museum)
-  museum["source_page"] = 'museum'
-  keep = museum.dup
-  keep["type"] = 'keep'
-  gps = museum.dup
-  gps["type"] = 'gps'
-  {
-    "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
-    "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
-    "text": museum["body"],
-    "actions": [
-      {
-        "type": "uri",
-        "label": "詳しく見る",
-        "uri": museum["url"]
-      },
-      {
-        "type": "postback",
-        "label": "場所を見る",
-        "data": param_encode(gps)
-      },
-      {
-        "type": "postback",
-        "label": "メモする",
-        "text": museum["title"] + ' をメモったよ！',
-        "data": param_encode(keep)
-      }
-    ]
-  }
-end
-
-
-def reply_carousel_asoview(asoview_data)
-  randoms = (0...asoview_data[:count]).to_a.shuffle![0...5]
-  datas = get_asoview_data(randoms.sort, asoview_data)
-  datas.map!{|data| make_carousel_asoview_cloumns(data) }
-  {
-    "type": "template",
-    "altText": "this is a carousel template",
-    "template": {
-       "type": "carousel",
-       "columns": datas
-    }
-  }
-end
-
-def make_carousel_asoview_cloumns(data)
-  data["source_page"] = 'asoview'
-  keep = data.dup
-  keep["type"] = 'keep'
-  gps = data.dup
-  gps["type"] = 'gps'
-  {
-    "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
-    "title": data["title"].slice(0,40),
-    "text": data["body"],
-    "actions": [
-      {
-        "type": "uri",
-        "label": "詳しく見る",
-        "uri": data["url"]
-      },
-      {
-        "type": "postback",
-        "label": "場所を見る",
-        "data": param_encode(gps)
-      },
-      {
-        "type": "postback",
-        "label": "メモする",
-        "text": data["title"] + ' をメモったよ！',
-        "data": param_encode(keep)
-      }
-    ]
-  }
-end
 def reply_gps(title='',address='',latitude='',longitude='')
   {
     "type": "location",
