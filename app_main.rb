@@ -6,7 +6,7 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  'ok'
+  reply_botton_schedule.to_s
 end
 
 get '/asoview' do
