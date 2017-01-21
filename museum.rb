@@ -70,7 +70,7 @@ end
 
 def reply_carousel_museums(museums)
   randoms = (0...museums.count).to_a.shuffle![0...5]
-  randoms.map!{|item| make_carousel_museum_cloumns(museums[item],1)}
+  randoms.map!{|item| make_carousel_museum_cloumns(museums[item])}
   {
     "type": "template",
     "altText": "this is a carousel template",
