@@ -70,7 +70,7 @@ end
 
 def reply_carousel_museums(museums)
   randoms = (0...museums.count).to_a.shuffle![0...5]
-  randoms.map!{|item| make_carousel_museum_cloumns(museums[item])}
+  randoms.map!{|item| make_carousel_museum_cloumns(museums[item],1)}
   {
     "type": "template",
     "altText": "this is a carousel template",
@@ -104,7 +104,7 @@ def make_carousel_museum_cloumns(museum,template_type=0)
         "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       })
-  if template_type
+  if template_type == 1
     actions.push({
         "type": "postback",
         "label": "メモする",
