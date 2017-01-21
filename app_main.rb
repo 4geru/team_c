@@ -91,6 +91,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
         end
       when "search"
+        puts 'search is called'
         client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
       end
     else 
