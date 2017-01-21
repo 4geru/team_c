@@ -108,12 +108,19 @@ def make_carousel_museum_cloumns(museum,template_type=0)
         "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       },
-      {
-        "type": "postback",
-        "label": "メモする",
-        "text": museum["title"] + ' をメモったよ！',
-        "data": param_encode(keep)
-      } if template_type == 1
+      hoge(template_type)
     ]
   }
+end
+
+def hoge(template_type)
+  if template_type == 1
+  {
+    "type": "postback",
+    "label": "メモする",
+    "text": museum["title"] + ' をメモったよ！',
+    "data": param_encode(keep)
+  }
+  end
+  '' 
 end
