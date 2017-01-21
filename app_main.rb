@@ -95,7 +95,7 @@ post '/callback' do
           when "gps"
             client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
           when "destroy"
-            Keep.where({:channel=>channel_id, :json=>event["postback"]["data"]})[0].destroy()
+            destroy_memos(channel_id,event["postback"]["data"])
           end
         when 'asoview'
           puts data
@@ -106,7 +106,7 @@ post '/callback' do
           when "gps"
             client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
           when "destroy"
-            Keep.where({:channel=>channel_id, :json=>event["postback"]["data"]})[0].destroy()
+            destroy_memos(channel_id,event["postback"]["data"])
           end
         end
       end

@@ -31,8 +31,8 @@ def get_id(event)
   end
 end
 
-def destroy_memos(channel_id)
-  keeps = Keep.where(channel: channel_id).order("updated_at desc").map {|event|
+def destroy_memos(channel_id,json)
+  keeps = Keep.where({channel: channel_id, json: json}).order("updated_at desc").map {|event|
     event.destroy
   }
 end
