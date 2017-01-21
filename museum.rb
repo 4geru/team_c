@@ -100,7 +100,7 @@ def make_carousel_museum_cloumns(museum,template_type=0)
 
   if template_type == 0
     # メモボタンの追加
-    keep["type"] = 'keep'
+    museum["type"] = 'keep'
     actions.push(make_action_memo(museum))
   else
     # 削除ボタンの追加

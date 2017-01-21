@@ -44,10 +44,6 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
           client.reply_message(event['replyToken'], reply_confirm_start)
-        elsif event.message['text'] =~ /寝かせて/
-          client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
-        elsif event.message['text'] =~ /情報/
-          client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
         elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/ and not event.message['text'] =~ /ったよ！/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_memos(channel))
