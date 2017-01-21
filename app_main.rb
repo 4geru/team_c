@@ -40,12 +40,12 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
-        elsif event.message['text'] =~ /ブックマーク/ and not event.message['text'] =~ /しました/
+        elsif event.message['text'] =~ /をメモったよ！/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_bookmarks(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
-        elsif event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/
+        elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
         else
           client.reply_message(event['replyToken'], reply_message(event.message['text']))
@@ -83,7 +83,7 @@ post '/callback' do
           case data["type"]
           when "keep"
             Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
-            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をブックマークしました!'))
+            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！'))
           when "gps"
             client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
           end
@@ -92,7 +92,7 @@ post '/callback' do
           case data["type"]
           when "keep"
             Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
-            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をブックマークしました!'))
+            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！!'))
           when "gps"
             client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
           end

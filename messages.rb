@@ -102,7 +102,7 @@ def reply_carousel_bookmarks(channel='')
   		end
   }
   if keeps.count == 0
-  	reply_message("まだブックマークされてないよー！")
+  	reply_message("メモ帳に何もないよー！")
   else
     {
       "type": "template",
@@ -139,7 +139,7 @@ def make_carousel_museum_cloumns(museum)
       {
         "type": "postback",
         "label": "ブックマークする",
-        "text": museum["title"] + ' をブックマークしました',
+        "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       }
     ]
@@ -185,7 +185,7 @@ def make_carousel_asoview_cloumns(data)
       {
         "type": "postback",
         "label": "ブックマークする",
-        "text": data["title"] + ' をブックマークしました',
+        "text": data["title"] + ' をメモったよ！',
         "data": param_encode(keep)
       }
     ]
