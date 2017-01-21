@@ -6,8 +6,8 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  rand_asoview_genre.to_s
-#  reply_carousel_asoview(rand_asoview_genre).to_s
+#  return rand_asoview_genre.to_s
+  reply_carousel_asoview(rand_asoview_genre).to_s
 #  reply_carousel_museums(reply_museum_datas).to_s
 end
 
