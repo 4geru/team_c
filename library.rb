@@ -28,7 +28,7 @@ def rand_museum_genre
     {:name => "パフォーマンスアート", :url => "http://www.tokyoartbeat.com/list/event_type_misc_performance.ja.xml"},
     {:name => "一般公募", :url => "http://www.tokyoartbeat.com/list/event_type_misc_performance.ja.xml"},
   ]
-  genres[rand(genres.count-1)]
+  genres[rand(genres.count-1).to_i]
 end
 
 def asoview_genre(date="20170121")
@@ -42,6 +42,7 @@ def asoview_genre(date="20170121")
     {:name => "観光・レジャー"},
     {:name => "スポーツ・フィットネス"},
     {:name => "雪"},
+    {:name => "cannot find"},
     {:name => "日本文化"},
     {:name => "サブカルチャー"},
     {:name => "テクノロジー"},
@@ -67,7 +68,6 @@ end
 def param_decode(string)
   hash = {}
   string.split('&').map{|item| 
-    item.split('=').to_s
     hash[item.split('=')[0]] = item.split('=')[1]
   }
   hash
@@ -137,16 +137,21 @@ def rand_asoview_genre
 
   facets = facets.split(',')
   searchUrls = searchUrls.split(',')
-  puts facets.count-8
-  puts genres.count
-  for i in 8...facets.count-1
-    count = facets[i].split("\'")[1].to_i
-    if count > 4
-      genres[i-8][:count] = count
-      genres[i-8][:url]   = searchUrls[i].split("\'")[1]
-    end 
+  over_5_events = []
+  genre_index = 0
+  for i in 1...searchUrls.count-1
+    count = facets[i].split('\'')[1].to_i
+    if not searchUrls[i] =~ /prf/ and count > 4
+      d = param_decode(searchUrls[i].split('?')[1])
+      genre = genres[d['ct'].to_i-1]
+      searchUrl = searchUrls[i].split('\'')[1]
+      genre[:url] = searchUrl
+      genre[:count] = count
+      over_5_events.push(genre)
+    end
   end
-  genres[rand(genres.count-1)]
+
+  over_5_events[rand(over_5_events.count-1).to_i]
 end
 
 def get_asoview_data(datas,data)
@@ -160,7 +165,6 @@ def get_asoview_data(datas,data)
   for i in hash.keys
     if hash[i].count != 0
       url = "http://www.asoview.com/" + data[:url] + "&page=#{i+1}"
-      puts url
       charset = nil
       html = open(url) do |f|
         charset = f.charset # 文字種別を取得

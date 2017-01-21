@@ -148,6 +148,7 @@ end
 
 
 def reply_carousel_asoview(asoview_data)
+  return asoview_data
   randoms = (0...asoview_data[:count]).to_a.shuffle![0...5]
   datas = get_asoview_data(randoms.sort, asoview_data)
   datas.map!{|data| make_carousel_asoview_cloumns(data) }
