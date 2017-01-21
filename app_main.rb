@@ -92,7 +92,7 @@ post '/callback' do
         end
       when "search"
         puts 'search is called'
-        client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
+        client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
       end
     else 
     end
