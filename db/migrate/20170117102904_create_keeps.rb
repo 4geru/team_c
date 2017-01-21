@@ -5,5 +5,6 @@ class CreateKeeps < ActiveRecord::Migration[5.0]
   		t.string :json
   		t.timestamps null: false
   	end
+#  	add_index  :keywords, , [:site_id, :name, :date], unique: true
   end
 end

@@ -76,31 +76,19 @@ post '/callback' do
         when "決まっていない"
           destroy_memos(channel_id)
           client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
-      end
+        end
+      when "keep"
+        Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
+        client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！'))
+      when "destroy"
+        puts "#{channel_id} -> #{event['postback']['data']}"
+        destroy_memo(channel_id,event['postback']['data'])
+      when "gps"
         case data["source_page"]
         when 'museum'
-          case data["type"]
-          when "keep"
-            Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
-            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！'))
-          when "gps"
-            client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
-          when "destroy"
-            puts "#{channel_id} -> #{event['postback']['data']}"
-            destroy_memo(channel_id,event['postback']['data'])
-          end
+          client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
         when 'asoview'
-          puts data
-          case data["type"]
-          when "keep"
-            Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
-            client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！!'))
-          when "gps"
-            client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
-          when "destroy"
-            puts "#{channel_id} -> #{event['postback']['data']}"
-            destroy_memo(channel_id,event['postback']['data'])
-          end
+          client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
         end
       end
     else 
