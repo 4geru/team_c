@@ -77,7 +77,11 @@ def get_asoview_data(datas,data)
         res['title'] = article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20].inner_text
         res['url'] = "http://www.asoview.com/" + article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20][:href]
         res['body'] =  article.xpath("//p[@class='plan-summary-list__plan-description']").inner_text.slice(0,40)
-        res['address'] = article.xpath("//p[@class='plan-summary-list__access-address']")[j-i*20].inner_text || "見つかりませんでした"
+        begin
+          res['address'] = article.xpath("//p[@class='plan-summary-list__access-address']")[j-i*20].inner_text
+        rescue
+          res['address'] = "見つかりませんでした"
+        end
         response.push(res)
       end
     end
@@ -104,7 +108,7 @@ def make_carousel_asoview_cloumns(data,template_type=1)
   data["source_page"] = 'asoview'
   keep = data.dup
   keep["type"] = 'keep'
-  destroy = museum.dup
+  destroy = data.dup
   destroy["type"] = 'destroy'
   gps = data.dup
   gps["type"] = 'gps'
@@ -112,7 +116,7 @@ def make_carousel_asoview_cloumns(data,template_type=1)
   actions.push({
     "type": "uri",
     "label": "詳しく見る",
-    "uri": museum["url"]
+    "uri": data["url"]
   })
   actions.push({
     "type": "postback",
@@ -124,14 +128,14 @@ def make_carousel_asoview_cloumns(data,template_type=1)
     actions.push({
       "type": "postback",
       "label": "メモする",
-      "text": museum["title"] + ' をメモったよ！',
+      "text": data["title"] + ' をメモったよ！',
       "data": param_encode(keep)
     })
   else
     actions.push({
       "type": "postback",
       "label": "削除",
-      "text": museum["title"] + ' 削除したよ！！',
+      "text": data["title"] + ' 削除したよ！！',
       "data": param_encode(destroy)
     })
   end
