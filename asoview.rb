@@ -104,40 +104,20 @@ def reply_carousel_asoview(asoview_data)
 end
 
 def make_carousel_asoview_cloumns(data,template_type=0)
-  puts data
-  data["source_page"] = 'asoview'
-  keep = data.dup
-  keep["type"] = 'keep'
-  destroy = data.dup
-  destroy["type"] = 'destroy'
-  gps = data.dup
-  gps["type"] = 'gps'
   actions = []
-  actions.push({
-    "type": "uri",
-    "label": "詳しく見る",
-    "uri": data["url"]
-  })
-  actions.push({
-    "type": "postback",
-    "label": "場所を見る",
-    "data": param_encode(gps)
-  })
+  # 詳細ボタンと, 住所ボタンの追加
+  actions.push(make_action_url(data["url"]))
+  museum["type"] = 'gps'
+  actions.push(make_action_address(param_encode(data)))
 
   if template_type == 0
-    actions.push({
-      "type": "postback",
-      "label": "メモする",
-      "text": data["title"] + ' をメモったよ！',
-      "data": param_encode(keep)
-    })
+    # メモボタンの追加
+    museum["type"] = 'keep'
+    actions.push(make_action_memo(data))
   else
-    actions.push({
-      "type": "postback",
-      "label": "削除",
-      "text": data["title"] + ' 削除したよ！！',
-      "data": param_encode(destroy)
-    })
+    # 削除ボタンの追加
+    museum["type"] = 'destroy'
+    actions.push(make_action_destroy(data))
   end
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
