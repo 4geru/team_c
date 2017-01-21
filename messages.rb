@@ -13,7 +13,7 @@ def reply_message(message='')
   }
 end
 
-# "あずみん起きて"
+# "あずみんイベント教えてー"
 def reply_confirm_start
   {
     "type": "template",
@@ -26,7 +26,7 @@ def reply_confirm_start
           "type": "postback",
           "label": "行きたい！",
           "text": "行きたい！",
-          "data": "type=reply&word=行きたい"
+          "data": "type=reply&word=あずみん行きたい"
         },
         {
           "type": "postback",
@@ -79,6 +79,7 @@ def reply_botton_schedule
   }
 end
 
+# メモのカルーセルを返す
 def reply_carousel_memos(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
@@ -104,6 +105,33 @@ def reply_carousel_memos(channel='')
   end 
 end
 
+
+# asoview のボタン
+def reply_confirm_start_asoview
+  {
+    "type": "template",
+    "altText": "this is a confirm template",
+    "template": {
+      "type": "confirm",
+      "text": "おっけー！\nイベント行きたいの？",
+      "actions": [
+        {
+          "type": "postback",
+          "label": "行きたい！",
+          "text": "あずみん教えてー！",
+          "data": "type=search&word=あずみん行きたい"
+        },
+        {
+          "type": "postback",
+          "label": "呼んだだけ",
+          "text": "呼んだだけ",
+          "data": "type=reply&word=呼んだだけ"
+        }
+      ]
+    }
+  }
+end
+
 def reply_gps(title='',address='',latitude='',longitude='')
   {
     "type": "location",
@@ -122,11 +150,12 @@ def make_action_url(url)
   }
 end
 
-def make_action_address(gps)
+def make_action_address(data)
   {
     "type": "postback",
     "label": "場所を見る",
-    "data": gps
+    "text": data["title"] + ' どこー？',
+    "data": param_encode(data)
   }
 end
 

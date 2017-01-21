@@ -105,7 +105,7 @@ def make_carousel_museum_cloumns(data,template_type=0)
   # 詳細ボタンと, 住所ボタンの追加
   actions.push(make_action_url(data["url"]))
   data["type"] = 'gps'
-  actions.push(make_action_address(param_encode(data)))
+  actions.push(make_action_address(data))
 
   if template_type == 0
     # メモボタンの追加

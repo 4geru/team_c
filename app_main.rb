@@ -6,9 +6,7 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-#  return rand_asoview_genre.to_s
-  reply_carousel_asoview(rand_asoview_genre).to_s
-#  reply_carousel_museums(museum_datas).to_s
+  'ok'
 end
 
 get '/asoview' do
@@ -42,7 +40,9 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
+        if event.message['text'] == "あずみん教えてー！"
+          client.reply_message(event['replyToken'], reply_message("検索するから少し待っててー"))
+        elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
           client.reply_message(event['replyToken'], reply_confirm_start)
         elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/ and not event.message['text'] =~ /ったよ！/
           channel = get_id(event["source"])
@@ -50,7 +50,7 @@ post '/callback' do
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
-          client.reply_message(event['replyToken'], [reply_message("検索するから少し待ってね！"),reply_carousel_asoview(rand_asoview_genre)])
+          client.reply_message(event['replyToken'], reply_confirm_start_asoview)
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
@@ -90,6 +90,8 @@ post '/callback' do
         when 'asoview'
           client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
         end
+      when "search"
+        client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
       end
     else 
     end
