@@ -35,5 +35,7 @@ def destroy_memos(channel_id)
 end
 
 def destroy_memo(channel_id,json=nil)
-  Keep.where({channel: channel_id, json: json}).delete_all
+  json = param_decode(json)
+  json['type'] = 'keep'
+  Keep.where({channel: channel_id, json: param_encode(json)}).delete_all
 end
