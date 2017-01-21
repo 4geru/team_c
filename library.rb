@@ -1,12 +1,12 @@
 def param_encode(data)
   string = ""
   f = false
-  puts string
   for key in data.keys
     string += '&' if f == true
     string += key + '=' + data[key]
     f = true
   end
+  puts "string #{string.to_s}"
   string
 end
 

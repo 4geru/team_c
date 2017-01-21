@@ -99,7 +99,7 @@ def make_carousel_museum_cloumns(museum,template_type=0)
         "data": param_encode(gps)
       })
 
-  if template_type == 1
+  if template_type == 0
     actions.push({
           "type": "postback",
           "label": "メモする",
