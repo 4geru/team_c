@@ -118,7 +118,7 @@ def reply_confirm_start_asoview
         {
           "type": "postback",
           "label": "行きたい！",
-          "text": "あずみん教えてー！",
+          "text": "あずみん探してー！",
           "data": "type=search&word=あずみん行きたい"
         },
         {
