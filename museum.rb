@@ -87,29 +87,36 @@ def make_carousel_museum_cloumns(museum,template_type=0)
   keep["type"] = 'keep'
   gps = museum.dup
   gps["type"] = 'gps'
-  {
-    "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
-    "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
-    "text": museum["body"],
-    "actions": [
-      {
+  actions = []
+  actions.push({
         "type": "uri",
         "label": "詳しく見る",
         "uri": museum["url"]
-      },
-      {
+      })
+  actions.push({
         "type": "postback",
         "label": "場所を見る",
         "data": param_encode(gps)
-      },
-      {
+      })
+  actions.push({
         "type": "postback",
         "label": "メモする",
         "text": museum["title"] + ' をメモったよ！',
         "data": param_encode(keep)
-      },
-      hoge(template_type)
-    ]
+      })
+  if template_type
+    actions.push({
+        "type": "postback",
+        "label": "メモする",
+        "text": museum["title"] + ' をメモったよ！',
+        "data": param_encode(keep)
+      })
+  end
+  {
+    "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
+    "title": museum["title"].slice(0,40-museum["area"].size-1) + '/' + museum["area"],
+    "text": museum["body"],
+    "actions": actions
   }
 end
 
