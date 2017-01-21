@@ -48,7 +48,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         elsif event.message['text'] =~ /情報/
           client.reply_message(event['replyToken'], reply_template_museum(reply_museum_data))
-        elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/
+        elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/ and not event.message['text'] =~ /ったよ！/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_memos(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
@@ -94,6 +94,8 @@ post '/callback' do
             client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！'))
           when "gps"
             client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
+          when "destroy"
+            Keep.destroy(:channel=>channel_id, :json=>event["postback"]["data"])
           end
         when 'asoview'
           puts data
@@ -103,6 +105,8 @@ post '/callback' do
             client.reply_message(event['replyToken'], reply_message(data['title'] + ' をメモったよ！!'))
           when "gps"
             client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
+          when "destroy"
+            Keep.destroy(:channel=>channel_id, :json=>event["postback"]["data"])
           end
         end
       end

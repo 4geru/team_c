@@ -85,34 +85,36 @@ def make_carousel_museum_cloumns(museum,template_type=0)
   museum["source_page"] = 'museum'
   keep = museum.dup
   keep["type"] = 'keep'
+  destroy = museum.dup
+  destroy["type"] = 'destroy'
   gps = museum.dup
   gps["type"] = 'gps'
   actions = []
   actions.push({
-        "type": "uri",
-        "label": "詳しく見る",
-        "uri": museum["url"]
-      })
+    "type": "uri",
+    "label": "詳しく見る",
+    "uri": museum["url"]
+  })
   actions.push({
-        "type": "postback",
-        "label": "場所を見る",
-        "data": param_encode(gps)
-      })
+    "type": "postback",
+    "label": "場所を見る",
+    "data": param_encode(gps)
+  })
 
   if template_type == 0
     actions.push({
-          "type": "postback",
-          "label": "メモする",
-          "text": museum["title"] + ' をメモったよ！',
-          "data": param_encode(keep)
-        })
+      "type": "postback",
+      "label": "メモする",
+      "text": museum["title"] + ' をメモったよ！',
+      "data": param_encode(keep)
+    })
   else
     actions.push({
-        "type": "postback",
-        "label": "削除",
-        "text": museum["title"] + ' 削除したよ！！',
-        "data": param_encode(keep)
-      })
+      "type": "postback",
+      "label": "削除",
+      "text": museum["title"] + ' 削除したよ！！',
+      "data": param_encode(destroy)
+    })
   end
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
