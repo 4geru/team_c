@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
+# 美術館のジャンルを自動的に返す
 def rand_museum_genre
   genres = [
     {:name => "2D/イラスト", :url => "http://www.tokyoartbeat.com/list/event_type_print_illustration.ja.xml"},
@@ -31,6 +32,7 @@ def rand_museum_genre
   genres[rand(genres.count-1).to_i]
 end
 
+# APIから展覧会の情報を取ってくる
 def museum_datas(url = rand_museum_genre[:url])
   uri = URI.parse(url)
   begin
@@ -68,53 +70,42 @@ def museum_datas(url = rand_museum_genre[:url])
   end
 end
 
+# カルーセルを返す
 def reply_carousel_museums(museums)
+  # museum からランダムに5つ以下を選択
   randoms = (0...museums.count).to_a.shuffle![0...5]
-  randoms.map!{|item| make_carousel_museum_cloumns(museums[item])}
+  columns = randoms.map{|item|
+    # テンプレートの作成
+    make_carousel_museum_cloumns(museums[item])
+  }
   {
     "type": "template",
     "altText": "this is a carousel template",
     "template": {
        "type": "carousel",
-       "columns": randoms
+       "columns": columns
     }
   }
 end
 
+# カルーセルの一つの
 def make_carousel_museum_cloumns(museum,template_type=0)
   museum["source_page"] = 'museum'
-  keep = museum.dup
-  keep["type"] = 'keep'
-  destroy = museum.dup
-  destroy["type"] = 'destroy'
-  gps = museum.dup
-  gps["type"] = 'gps'
+
   actions = []
-  actions.push({
-    "type": "uri",
-    "label": "詳しく見る",
-    "uri": museum["url"]
-  })
-  actions.push({
-    "type": "postback",
-    "label": "場所を見る",
-    "data": param_encode(gps)
-  })
+  # 詳細ボタンと, 住所ボタンの追加
+  actions.push(make_action_url(museum["url"]))
+  museum["type"] = 'gps'
+  actions.push(make_action_address(param_encode(museum)))
 
   if template_type == 0
-    actions.push({
-      "type": "postback",
-      "label": "メモする",
-      "text": museum["title"] + ' をメモったよ！',
-      "data": param_encode(keep)
-    })
+    # メモボタンの追加
+    keep["type"] = 'keep'
+    actions.push(make_action_memo(museum))
   else
-    actions.push({
-      "type": "postback",
-      "label": "削除",
-      "text": museum["title"] + ' 削除したよ！！',
-      "data": param_encode(destroy)
-    })
+    # 削除ボタンの追加
+    museum["type"] = 'destroy'
+    actions.push(make_action_destroy(museum))
   end
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
@@ -122,16 +113,4 @@ def make_carousel_museum_cloumns(museum,template_type=0)
     "text": museum["body"],
     "actions": actions
   }
-end
-
-def hoge(template_type)
-  if template_type == 1
-  {
-    "type": "postback",
-    "label": "メモする",
-    "text": museum["title"] + ' をメモったよ！',
-    "data": param_encode(keep)
-  }
-  end
-  '' 
 end

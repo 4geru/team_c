@@ -55,6 +55,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
+        else
+          client.reply_message(event['replyToken'], reply_carousel_asoview(event.message['text']))
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
