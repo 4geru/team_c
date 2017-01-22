@@ -17,7 +17,7 @@ end
 def reply_confirm_start
   {
     "type": "template",
-    "altText": "this is a confirm template",
+    "altText": "イベント選択中",
     "template": {
       "type": "confirm",
       "text": "おっけー！\nイベント行きたいの？",
@@ -43,7 +43,7 @@ end
 def reply_botton_schedule
   {
     "type": "template",
-    "altText": "this is a buttons template",
+    "altText": "日程調整中",
     "template": {
       "type": "buttons",
       "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
@@ -96,7 +96,7 @@ def reply_carousel_memos(channel='')
   else
     {
       "type": "template",
-      "altText": "this is a carousel template",
+      "altText": "メモ帳閲覧中",
       "template": {
         "type": "carousel",
         "columns": keeps
@@ -110,7 +110,7 @@ end
 def reply_confirm_start_asoview
   {
     "type": "template",
-    "altText": "this is a confirm template",
+    "altText": "イベント選択中",
     "template": {
       "type": "confirm",
       "text": "おっけー！\nイベント行きたいの？",
