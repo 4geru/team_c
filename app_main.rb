@@ -43,9 +43,11 @@ post '/callback' do
         if event.message['text'] == "あずみん探してー！"
           client.reply_message(event['replyToken'], reply_message("検索するから少し待っててー"))
         elsif event.message['text'] =~ /あずみん週末行きたい/ or event.message['text'] =~ /あずみん明日行きたい/ or event.message['text'] =~ /あずみん今日行きたい/
+          channel_id = get_id(event["source"])
           destroy_memos(channel_id)
           client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         elsif event.message['text'] =~ /あずみん決まってない/
+          channel_id = get_id(event["source"])
           destroy_memos(channel_id)
           client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
