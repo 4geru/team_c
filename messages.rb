@@ -53,25 +53,25 @@ def reply_botton_schedule
         {
           "type": "postback",
           "label": "今日",
-          "text": "今日行きたい",
+          "text": "あずみん今日行きたい",
           "data": "type=reply&word=今日だね"
         },
         {
           "type": "postback",
           "label": "明日",
-          "text": "明日行きたい",
+          "text": "あずみん明日行きたい",
           "data": "type=reply&word=明日だね"
         },
         {
           "type": "postback",
           "label": "週末",
-          "text": "週末行きたい",
+          "text": "あずみん週末行きたい",
           "data": "type=reply&word=週末だね"
         },
         {
           "type": "postback",
           "label": "決まってない",
-          "text": "決まってない",
+          "text": "あずみん決まってない",
           "data": "type=reply&word=決まっていない"
         }
       ]

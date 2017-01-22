@@ -42,6 +42,10 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] == "あずみん探してー！"
           client.reply_message(event['replyToken'], reply_message("検索するから少し待っててー"))
+        elsif event.message['text'] =~ /あずみん週末行きたい/ or event.message['text'] =~ /あずみん明日行きたい/ or event.message['text'] =~ /あずみん今日行きたい/
+          client.reply_message(event['replyToken'], reply_message("検索するから少し待っててー"))
+        elsif event.message['text'] =~ /あずみん決まってない/
+          client.reply_message(event['replyToken'], reply_message("おっけー！\nオススメ検索するから少し待っててー"))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
           client.reply_message(event['replyToken'], reply_confirm_start)
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/) and not event.message['text'] =~ /ったよ！/
@@ -76,10 +80,10 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_message('もう (おこ)'))
         when "今日だね", "明日だね", "週末だね"
           destroy_memos(channel_id)
-          client.reply_message(event['replyToken'], [reply_message(data["word"] + "\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+          client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         when "決まっていない"
           destroy_memos(channel_id)
-          client.reply_message(event['replyToken'], [reply_message("じゃあ、今開催中のイベントを紹介するね。\nこんなのはどうかな？"),reply_carousel_museums(museum_datas)])
+          client.reply_message(event['replyToken'], reply_carousel_museums(museum_datas))
         end
       when "keep"
         Keep.create(:channel=>channel_id, :json=>event["postback"]["data"])
