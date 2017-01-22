@@ -44,7 +44,7 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_message("検索するから少し待っててー"))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /教えて/ or event.message['text'] =~ /おしえて/ or event.message['text'] =~ /イベント/ or event.message['text'] =~ /いべんと/)
           client.reply_message(event['replyToken'], reply_confirm_start)
-        elsif event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/ and not event.message['text'] =~ /ったよ！/
+        elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /メモ/ or event.message['text'] =~ /めも/) and not event.message['text'] =~ /ったよ！/
           channel = get_id(event["source"])
           client.reply_message(event['replyToken'], reply_carousel_memos(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
@@ -52,7 +52,7 @@ post '/callback' do
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_confirm_start_asoview)
         elsif event.message['text'] =~ /あずみん/
-          client.reply_message(event['replyToken'], reply_message("あずみんイベント！ : アートをオススメするよ！\nあずみん遊びたい！ : アウトドア・創作系をオススメするよ！\nあずみんほかのはー？ : 他のイベントを教えるよ！\nメモー！ : メモ一覧が見えます"))  
+          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アートをオススメするよ！\nあずみん遊びたい！\n → アウトドア・創作系をオススメするよ！\nあずみんほかのはー？\n → 他のイベントを教えるよ！\nあずみんメモー！\n → メモ一覧が見えます"))  
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
