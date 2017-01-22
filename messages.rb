@@ -176,3 +176,12 @@ def make_action_destroy(data)
     "data": param_encode(data)
   }
 end
+
+def reply_stamp_original
+  stickers = [180,184,186,199,208,206,236,243]
+  {
+    type: 'sticker',
+    packageId: "3",
+    stickerId: stickers[rand(stickers.count-1)].to_s
+  }
+end

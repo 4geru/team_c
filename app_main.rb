@@ -6,7 +6,7 @@ require './models/keeps'
 require 'json'
 
 get '/' do
-  reply_botton_schedule.to_s
+  reply_stamp_original.to_s
 end
 
 get '/asoview' do
@@ -51,8 +51,10 @@ post '/callback' do
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_confirm_start_asoview)
+        elsif event.message['text'] =~ /あずみん/ or event.message['text'] =~ /かわいい/
+          client.reply_message(event['replyToken'], reply_stamp_original)
         elsif event.message['text'] =~ /あずみん/
-          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アートをオススメ！\nあずみん遊びたい！\n → アウトドア・創作系をオススメ！\nあずみんほかのはー？\n → 他のイベントを教えるよ！\nあずみんメモー！\n → メモしたのが見えるよ！"))  
+          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アート系をオススメ！\n\nあずみん遊びたい！\n → アクティビティ系をオススメ！\n\nあずみんほかのはー？\n → 他のイベントを教えるよ！\n\nあずみんメモー！\n → メモしたのが見えるよ！"))  
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
