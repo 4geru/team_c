@@ -74,7 +74,8 @@ def get_asoview_data(datas,data)
       for j in hash[i]
         res = {}
         article = doc.xpath("//li[@class='plan-summary-list__item js-prAd_impression']")[j-i*20]
-        res['title'] = article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20].inner_text
+        
+        res["source_page"] = 'asoview'res['title'] = article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20].inner_text
         res['url'] = "http://www.asoview.com/" + article.xpath("//a[@class='plan-summary-list__plan-title-link js-prAd_click']")[j-i*20][:href]
         res['body'] =  article.xpath("//p[@class='plan-summary-list__plan-description']").inner_text.slice(0,40)
         begin
@@ -105,7 +106,6 @@ end
 
 def make_carousel_asoview_cloumns(data,template_type=0)
   actions = []
-  data["source_page"] = 'asoview'
   # 詳細ボタンと, 住所ボタンの追加
   actions.push(make_action_url(data["url"]))
   data["type"] = 'gps'

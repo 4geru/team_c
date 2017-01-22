@@ -46,6 +46,7 @@ def museum_datas(url = rand_museum_genre[:url])
     array = []
     doc.elements.each('Events/Event') do |event|
       res = {}
+      res["source_page"] = 'museum'
       res["title"]     = event.elements['Name'].text
       res["url"]       = event.attribute('href').to_s
       res["area"]      = event.elements['Venue/Area'].text
@@ -99,7 +100,6 @@ end
 #  "address"=>"住所", "latitude"=>"緯度", "longitude"=>"経度"}
 def make_carousel_museum_cloumns(data,template_type=0)
   puts data
-  data["source_page"] = 'museum'
 
   actions = []
   # 詳細ボタンと, 住所ボタンの追加
