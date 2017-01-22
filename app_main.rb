@@ -52,7 +52,7 @@ post '/callback' do
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_confirm_start_asoview)
         elsif event.message['text'] =~ /あずみん/
-          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アートをオススメするよ！\nあずみん遊びたい！\n → アウトドア・創作系をオススメするよ！\nあずみんほかのはー？\n → 他のイベントを教えるよ！\nあずみんメモー！\n → メモ一覧が見えます"))  
+          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アートをオススメ！\nあずみん遊びたい！\n → アウトドア・創作系をオススメ！\nあずみんほかのはー？\n → 他のイベントを教えるよ！\nあずみんメモー！\n → メモしたのが見えるよ！"))  
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
