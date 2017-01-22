@@ -51,6 +51,8 @@ post '/callback' do
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
           client.reply_message(event['replyToken'], reply_confirm_start_asoview)
+        elsif event.message['text'] =~ /あずみん/
+          client.reply_message(event['replyToken'], reply_message("あずみんイベント！ : アートをオススメするよ！\nあずみん遊びたい！ : アウトドア・創作系をオススメするよ！\nあずみんほかのはー？ : 他のイベントを教えるよ！\nメモー！ : メモ一覧が見えます"))  
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])

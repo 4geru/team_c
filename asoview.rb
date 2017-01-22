@@ -95,7 +95,7 @@ def reply_carousel_asoview(asoview_data)
   datas.map!{|data| make_carousel_asoview_cloumns(data) }
   {
     "type": "template",
-    "altText": "this is a carousel template",
+    "altText": "イベント選択中",
     "template": {
        "type": "carousel",
        "columns": datas

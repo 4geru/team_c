@@ -84,7 +84,7 @@ def reply_carousel_museums(museums)
   }
   {
     "type": "template",
-    "altText": "this is a carousel template",
+    "altText": "イベント選択中",
     "template": {
        "type": "carousel",
        "columns": columns
