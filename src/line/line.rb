@@ -41,7 +41,7 @@ post '/callback' do
         elsif event.message['text'] == "あずみん"
           client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アート系をオススメ！\n\nあずみん遊びたい！\n → アクティビティ系をオススメ！\n\nあずみんほかのはー？\n → 他のイベントを教えるよ！\n\nあずみんメモー！\n → メモしたのが見えるよ！"))
         else
-          client.reply_message(event['replyToken'], reply_message(event.message['text']))
+          client.reply_message(event['replyToken'], event.message['text'].replyMessage)
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
