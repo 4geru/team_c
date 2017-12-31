@@ -1,4 +1,6 @@
 require './src/line/messages'
+require 'sinatra'
+require 'line/bot'
 post '/callback' do
   body = request.body.read
 

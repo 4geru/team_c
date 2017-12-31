@@ -22,3 +22,6 @@ gem 'pg', groups: %w(production), require: false
 
 # env file
 gem 'dotenv'
+
+# spec
+gem "rspec"
