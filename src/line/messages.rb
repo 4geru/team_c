@@ -1,10 +1,10 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require "rexml/document" 
-require './library'
-require './asoview'
-require './museum'
+require "rexml/document"
+require './src/line/library'
+require './src/line/asoview'
+require './src/line/museum'
 # "デバッグ用"
 def reply_message(message='')
   message = {
@@ -102,7 +102,7 @@ def reply_carousel_memos(channel='')
         "columns": keeps
       }
     }
-  end 
+  end
 end
 
 

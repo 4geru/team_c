@@ -1,29 +1,4 @@
-require 'sinatra'
-require 'line/bot'
-require './messages'
-require './library'
-require './models/keeps'
-require 'json'
-
-get '/' do
-  reply_stamp_original.to_s
-end
-
-get '/asoview' do
-  reply_carousel_asoview(rand_asoview_genre).to_s
-end
-
-get '/museum' do
-  reply_carousel_museums(museum_datas).to_s
-end
-
-def client
-  @client ||= Line::Bot::Client.new { |config|
-    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-    config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-  }
-end
-
+require './src/line/messages'
 post '/callback' do
   body = request.body.read
 
@@ -36,7 +11,7 @@ post '/callback' do
   events.each { |event|
     puts event.class
     case event
-    
+
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
@@ -62,7 +37,9 @@ post '/callback' do
         elsif event.message['text'] =~ /あずみん/ and event.message['text'] =~ /かわいい/
           client.reply_message(event['replyToken'], reply_stamp_original)
         elsif event.message['text'] == "あずみん"
-          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アート系をオススメ！\n\nあずみん遊びたい！\n → アクティビティ系をオススメ！\n\nあずみんほかのはー？\n → 他のイベントを教えるよ！\n\nあずみんメモー！\n → メモしたのが見えるよ！"))  
+          client.reply_message(event['replyToken'], reply_message("あずみんイベント！\n → アート系をオススメ！\n\nあずみん遊びたい！\n → アクティビティ系をオススメ！\n\nあずみんほかのはー？\n → 他のイベントを教えるよ！\n\nあずみんメモー！\n → メモしたのが見えるよ！"))
+        else
+          client.reply_message(event['replyToken'], reply_message(event.message['text']))
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
@@ -104,7 +81,7 @@ post '/callback' do
         puts 'search is called'
         client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
       end
-    else 
+    else
     end
   }
   "OK"
