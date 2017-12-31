@@ -99,23 +99,43 @@ end
 # {"title"=>"タイトル", "url"=>"詳細URL", "area"=>"渋谷,新宿...", "body"=>"説明"
 #  "address"=>"住所", "latitude"=>"緯度", "longitude"=>"経度"}
 def make_carousel_museum_cloumns(data,template_type=0)
-  puts data
 
   actions = []
   # 詳細ボタンと, 住所ボタンの追加
-  actions.push(make_action_url(data["url"]))
-  data["type"] = 'gps'
-  actions.push(make_action_address(data))
+
+  action_address = Action.new('postback', {
+    :label => "詳しく見る",
+    :uri => data["url"],
+    :data => data.merge({:type => 'uri'})
+  })
+
+  action_address = Action.new('postback', {
+    :label => "場所を見る",
+    :text => data["title"] + ' どこー？',
+    :data => data.merge({:type => 'gps'})
+  })
+
+  actions.push(action_url.uri)
+  actions.push(action_address.postback)
 
   if template_type == 0
     # メモボタンの追加
-    data["type"] = 'keep'
-    actions.push(make_action_memo(data))
+    action_memo = Action.new('postback', {
+      :label => "メモする",
+      :text => data["title"] + ' をメモったよ！',
+      :data => data.merge({:type => 'keep'})
+    })
+    actions.push(action_memo.postback)
   else
     # 削除ボタンの追加
-    data["type"] = 'destroy'
-    actions.push(make_action_destroy(data))
+    action_destroy = Action.new('postback', {
+      :label => "削除",
+      :text => data["title"] + ' 削除したよ！！',
+      :data => data.merge({:type => 'destory'})
+    })
+    actions.push(action_destroy.postback)
   end
+
   {
     "thumbnailImageUrl": "https://res.cloudinary.com/dn8dt0pep/image/upload/v1484641224/question.jpg",
     "title": data["title"].slice(0,40-data["area"].size-1) + '/' + data["area"],
