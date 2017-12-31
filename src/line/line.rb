@@ -34,8 +34,6 @@ post '/callback' do
           client.reply_message(event['replyToken'], reply_carousel_memos(channel))
         elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /他/ or event.message['text'] =~ /ほか/ or event.message['text'] =~ /違う/ or event.message['text'] =~ /ちがう/)
           client.reply_message(event['replyToken'], [reply_message("こんなのもあるよー！"),reply_carousel_museums(museum_datas)])
-        elsif event.message['text'] =~ /あずみん/ and (event.message['text'] =~ /あそ/ or event.message['text'] =~ /遊/)
-          client.reply_message(event['replyToken'], reply_confirm_start_asoview)
         elsif event.message['text'] =~ /あずみん/ and event.message['text'] =~ /かわいい/
           client.reply_message(event['replyToken'], reply_stamp_original)
         elsif event.message['text'] == "あずみん"
@@ -76,14 +74,8 @@ post '/callback' do
         case data["source_page"]
         when 'museum'
           client.reply_message(event['replyToken'], reply_gps(data['title'],data['address'],data['latitude'],data['longitude']))
-        when 'asoview'
-          client.reply_message(event['replyToken'], reply_message(data['title']+" の場所は "+data['address']+" だよー！"))
         end
-      when "search"
-        puts 'search is called'
-        client.reply_message(event['replyToken'], reply_carousel_asoview(rand_asoview_genre))
       end
-    else
     end
   }
   "OK"

@@ -3,7 +3,6 @@ require 'uri'
 require 'json'
 require "rexml/document"
 require './src/line/library'
-require './src/line/asoview'
 require './src/line/museum'
 # "デバッグ用"
 def reply_message(message='')
@@ -84,11 +83,8 @@ def reply_carousel_memos(channel='')
   keeps = Keep.where(channel: channel).
     order("updated_at desc").limit(5).map {|event|
     	data =  param_decode(event['json'])
-      # make_carousel_XX_cloumns(data, template_type)
     	if data['source_page'] == 'museum'
 	      make_carousel_museum_cloumns(data,1)
-  		else
-  			make_carousel_asoview_cloumns(data,1)
   		end
   }
   if keeps.count == 0
@@ -103,33 +99,6 @@ def reply_carousel_memos(channel='')
       }
     }
   end
-end
-
-
-# asoview のボタン
-def reply_confirm_start_asoview
-  {
-    "type": "template",
-    "altText": "イベント選択中",
-    "template": {
-      "type": "confirm",
-      "text": "おっけー！\nイベント行きたいの？",
-      "actions": [
-        {
-          "type": "postback",
-          "label": "行きたい！",
-          "text": "あずみん探してー！",
-          "data": "type=search&word=あずみん探してー！"
-        },
-        {
-          "type": "postback",
-          "label": "呼んだだけ",
-          "text": "呼んだだけ",
-          "data": "type=reply&word=呼んだだけ"
-        }
-      ]
-    }
-  }
 end
 
 def reply_gps(title='',address='',latitude='',longitude='')
