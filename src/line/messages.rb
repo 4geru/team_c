@@ -21,18 +21,18 @@ def reply_confirm_start
       "type": "confirm",
       "text": "おっけー！\nイベント行きたいの？",
       "actions": [
-        {
-          "type": "postback",
-          "label": "行きたい！",
-          "text": "行きたい！",
-          "data": "type=reply&word=あずみん行きたい"
-        },
-        {
-          "type": "postback",
-          "label": "呼んだだけ",
-          "text": "呼んだだけ",
-          "data": "type=reply&word=呼んだだけ"
-        }
+        Action.new('postback', {
+          :type => "postback",
+          :label => "行きたい！",
+          :text => "行きたい！",
+          :data => {:type => 'reply', :word=> 'あずみん行きたい'}
+        }).postback,
+        Action.new('postback', {
+          :type => "postback",
+          :label => "呼んだだけ",
+          :text => "呼んだだけ",
+          :data => {:type => 'reply', :word=> '呼んだだけ'}
+        }).postback
       ]
     }
   }
@@ -49,30 +49,30 @@ def reply_botton_schedule
       "title": "日程決めるよ",
       "text": "いつがいい？",
       "actions": [
-        {
-          "type": "postback",
-          "label": "今日",
-          "text": "あずみん今日行きたい",
-          "data": "type=reply&word=今日だね"
-        },
-        {
-          "type": "postback",
-          "label": "明日",
-          "text": "あずみん明日行きたい",
-          "data": "type=reply&word=明日だね"
-        },
-        {
-          "type": "postback",
-          "label": "週末",
-          "text": "あずみん週末行きたい",
-          "data": "type=reply&word=週末だね"
-        },
-        {
-          "type": "postback",
-          "label": "決まってない",
-          "text": "あずみん決まってない",
-          "data": "type=reply&word=決まっていない"
-        }
+        Action.new('postback', {
+          :type => "postback",
+          :label => "今日",
+          :text => "あずみん今日行きたい",
+          :data => {:type => 'reply', :word=> '今日だね'}
+        }).postback,
+        Action.new('postback', {
+          :type => "postback",
+          :label => "明日",
+          :text => "あずみん明日行きたい",
+          :data => {:type => 'reply', :word=> '明日だね'}
+        }).postback,
+        Action.new('postback', {
+          :type => "postback",
+          :label => "週末",
+          :text => "あずみん週末行きたい",
+          :data => {:type => 'reply', :word=> '週末だね'}
+        }).postback,
+        Action.new('postback', {
+          :type => "postback",
+          :label => "決まってない",
+          :text => "あずみん決まってない",
+          :data => {:type => 'reply', :word=> '決まっていない'}
+        }).postback
       ]
     }
   }
@@ -108,41 +108,6 @@ def reply_gps(title='',address='',latitude='',longitude='')
     "address": address,
     "latitude": latitude,
     "longitude": longitude
-  }
-end
-
-def make_action_url(url)
-  {
-    "type": "uri",
-    "label": "詳しく見る",
-    "uri": url
-  }
-end
-
-def make_action_address(data)
-  {
-    "type": "postback",
-    "label": "場所を見る",
-    "text": data["title"] + ' どこー？',
-    "data": param_encode(data)
-  }
-end
-
-def make_action_memo(data)
-  {
-    "type": "postback",
-    "label": "メモする",
-    "text": data["title"] + ' をメモったよ！',
-    "data": param_encode(data)
-  }
-end
-
-def make_action_destroy(data)
-  {
-    "type": "postback",
-    "label": "削除",
-    "text": data["title"] + ' 削除したよ！！',
-    "data": param_encode(data)
   }
 end
 
